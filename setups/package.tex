@@ -1,0 +1,34 @@
+% select Vietnamese language
+\usepackage[utf8]{vietnam}
+% select Times new roman font
+\usepackage{times}
+% select font size 13pt
+% \usepackage[fontsize=13pt]{scrextend}
+% select line spacing 1.5lines
+\renewcommand{\baselinestretch}{1.5}
+% set up article alignment
+\usepackage[top=3.5cm, bottom=3cm, left=3.5cm, right=2cm]{geometry}
+% graphics package
+\usepackage{graphicx}
+\usepackage{graphics}
+% set up item list
+\usepackage{enumerate}
+% set up article references
+\renewcommand{\refname}{whatever}
+\usepackage{lastpage}
+% customize latex table
+\usepackage{array}
+% customize section
+\usepackage{titlesec}
+\usepackage[utf8]{inputenc}
+%Includes "References" in the table of contents
+\usepackage[nottoc]{tocbibind}
+\setcounter{secnumdepth}{4}
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}
+{\theparagraph}{1em}
+{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+% Customize paragraph
+\usepackage{indentfirst}
