@@ -1,6 +1,6 @@
 ## Prerequisites
 
-- Install texlive
+- Install texlive on Ubuntu
 
 ```
 sudo apt install texlive-full
