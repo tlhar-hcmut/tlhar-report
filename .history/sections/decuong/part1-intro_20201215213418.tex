@@ -40,40 +40,27 @@ nhận diện hành vi chính xác hơn cho mô hình cải tiến.
 
 \subsection{Mục tiêu của giai đoạn đề cương luận văn}
 %TODO: giai đoạn đề cương luận văn đề ra mục tiêu gì? servey, implements các pp đã có, so sánh, kết quả bước đầu.
-Trong giai đoạn đề cương luận văn này, mục tiêu của nhóm là khảo sát, nghiên cứu, phát triển hệ thống nhận diện hành vi qua video,
-cụ thể  như sau:
+Trong giai đoạn đề cương luận văn này, mục tiêu của nhóm là
 \begin{itemize}
-    \item Thực hiện khảo sát những phương pháp nổi bật trong lĩnh vực nghiên cứu, từ thời điểm hiện tại trở về trước. Nghiên
-          cứu ưu nhược điểm của từng phương pháp cũng như tiến hành hiện thực một số phương pháp nếu được để nghiệm thu và đánh giá kết quả.
-    \item Từ kết quả khảo sát chung, tiến hành đánh giá, so sánh để chọn ra phương pháp khả thi nhất làm phương pháp nền tảng để đi sâu nghiên cứu.
-    \item Tìm ra những vấn đề tồn đọng của phương pháp đã chọn, nghiên cứu cải tiến để được mục đích mong muốn.
-    \item Sưu tập dữ liệu và các tài nguyên cần thiết cho phương pháp đã chọn, cũng như thử hiện thực phương pháp để có kết quả bước đầu,
-          nhằm đảm bảo tính khả thi của phương pháp, từ đó tạo tiền đề cho việc đi sâu phát triển ở giai đoạn về sau.
-    \item Tìm ra các vấn đề tồn đọng chưa được giải quyết và đề xuất các hướng phát triển sau này.
+    \item Crawling (web crawling) là thực hiện trên web.
+    \item Chương trình crawl này được gọi là crawl agent, bot hay  spider.
+    \item Một số web spider được thiết kế để đạt tới độ sâu tối đa của một trang và crawl dữ liệu chúng một cách lặp đi lặp lại.
+    \item Thường kèm theo một chương trình gọi là data de-duplicateion để tránh lặp lại các nội dung tương tự.
+    \item Cần có sự xử lý giữa những lần crawl liên tiếp.
+    \item Cần crawl web sao cho không gây áp lực lên server cũng như tuân thủ các chính sách của server.
+    \item Các crawl agents được sử dụng để crawl các websites khác nhau, do đó không có sự xung đột nào xảy ra.
 \end{itemize}
 
-Để phù hợp với thời gian  hạn chế của giai đoạn đề cương, nhóm tập trung nghiên cứu bài toán trong phạm vi cụ thể :
+Để phù hợp với lượng thời gian  hạn chế của giai đoạn đề cương, nhóm tập trung nghiên cứu trong phạm vi:
 \begin{itemize}
-    \item Đối tượng để nhận diện hành vi là con người (human).
-    \item Hiện tại dữ liệu đầu vào đang là dạng skeleton data, sau này sẽ là dữ liệu video RGB, việc chuyển từ RGB sang skeleton hiện
-          đã có các phương pháp hoạt động tốt.
-    \item Chỉ mới thao tác trên các hành động phổ biến, gồm 60 hành động hay là 60 class cho bài toán nhận diện hành vi qua video, về sau nhóm sẽ mở rộng
-          hệ thống cho nhiều class hơn.
-    \item Số đối tượng là 1 người độc lập, sau này sẽ là nhận diện trên một nhóm người cùng với tương tác giữa các đối tượng (nhận diện ở mức độ cao cấp hơn).
+    \item Crawling (web crawling) là thực hiện trên web.
+    \item Chương trình crawl này được gọi là crawl agent, bot hay  spider.
+    \item Một số web spider được thiết kế để đạt tới độ sâu tối đa của một trang và crawl dữ liệu chúng một cách lặp đi lặp lại.
+    \item Thường kèm theo một chương trình gọi là data de-duplicateion để tránh lặp lại các nội dung tương tự.
+    \item Cần có sự xử lý giữa những lần crawl liên tiếp.
+    \item Cần crawl web sao cho không gây áp lực lên server cũng như tuân thủ các chính sách của server.
+    \item Các crawl agents được sử dụng để crawl các websites khác nhau, do đó không có sự xung đột nào xảy ra.
 \end{itemize}
 
 \subsection{Cấu trúc của đề cương luận văn}
-Đề cương luận văn được tổ chức thành các phần như sau:
-
-
-\begin{enumerate}[Chương 1]
-    \item Giới thiệu tổng quan về bài toán Nhận diện hành vi qua video, cũng như động lực nghiên cứu, mục tiêu nghiên cứu và thách thức của bài toán.
-    \item Các khảo sát liên quan tới bài toán đang nghiên cứu. Thực hiện phân tích ưu nhược điểm của từng phương pháp để có cái nhìn khách quan hơn về bài toán.
-    \item Kiến thức nền tảng về toán hoc cũng như kiến thức về học máy liên quan tới đề tài nghiên cứu.
-    \item Phương pháp nhóm đề xuất phát triển để giải quyết bài toán nhận diện hành động qua video.
-    \item Kết quả bước đầu của nhóm cũng như minh chứng cho tính khả thi của đề tài.
-    \item Phân tích kết quả đạt được, những ưu điểm cũng như khuyết điểm còn tồn đọng. Lên kế hoạch cho giai đoạn luận văn tiếp theo.
-    \item Kết luận đề tài, đề xuất cải tiến cho hệ thống trong tương lai.
-\end{enumerate}
-
 
