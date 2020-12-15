@@ -299,3 +299,5 @@ TSWLatexianTemp*
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+#.history
+.history
