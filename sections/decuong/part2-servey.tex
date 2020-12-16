@@ -41,8 +41,9 @@ Trong những năm gần đây, việc ứng dụng học sâu vào thị giác 
 
 Các mô hình học sâu đó chủ yếu giải quyết đặc tính đặc biệt của dữ liệu đó dữ liệu dạng chuỗi các ảnh tĩnh. Và trong đó, các mô hình chủ yếu dựa trên 3 mô hình sau:
 
-\begin{itemize}
-    \item Two-stream convolutional networks. Giống như tên gọi, đầu vào của mô hình gồm 2 thành phầm. Một là ảnh tĩnh chứa thông tin về không gian. Hai là optical flow được tính từ chuỗi các frame hình, chứa thông tin về thời gian. Hai đầu vào sẽ được đưa vào hai mạng CNN nhằm trích suất kiến thức về không thời gian. Kết quả của hai nhánh sẽ được tổng hợp lại để phân loại.
-    \item 3D convolutional networks
-    \item long short-term memory (LSTM)
-\end{itemize}
+
+\textbf{3D convolutional networks:} mô hình này là sử mở rộng của 2D ConvNets vì chúng thu thêm thông tin về thời gian. Đây là một trong những phương pháp đầu tiên ứng dụng CNN để nhận diện hành động. Tuy nhiên phương pháp này tốn chi phí tính toán lớn, vì phải thực hiện 3D convolution trên nhiều frame liền kề nhau để trích suất cả thông tin về không gian và thời gian. Giải thuật này có hạn chế  rõ ràng là chúng thường xét các khoảng thời gian rất ngắn, thường khoảng 16 hay 32 khung hình để giảm chi phí tính toán.
+
+\textbf{Two-stream convolutional networks:} Giống như tên gọi, đầu vào của mô hình gồm 2 thành phầm. Một là ảnh tĩnh chứa thông tin về không gian. Hai là optical flow được tính từ chuỗi các frame hình, chứa thông tin về thời gian. Hai đầu vào sẽ được đưa vào hai mạng CNN nhằm trích suất kiến thức về không thời gian. Kết quả của hai nhánh sẽ được tổng hợp lại để phân loại.
+
+\textbf{Long short-term memory (LSTM):} Một cách tiếp cận khác để trích suất được thông tin về thời gian đó là thêm lớp họ RNN và CNN 2D, chẳng hạn như LSTM. Nhờ đó mô hình này có thể được khả năng hiểu dữ liệu không gian mạnh mẽ của CNN và trí nhớ dài hạn của LSTM.
