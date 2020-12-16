@@ -1,13 +1,31 @@
 \section{Các khảo sát liên quan đến đề tài}
 
-Trong chương này, sẽ trình bày khảo sát về bài toán Nhận diện hành động trong video. Bao gồm: thách thức của bài toán, phương pháp truyền thống, phương pháp deep learning và cuối cùng là phương pháp sử dụng mạng nơron tích chập trên đồ thị hay còn gọi là Graph convolutional network.
+Trong chương này, sẽ trình bày khảo sát về bài toán Nhận diện hành động trong video. Bao gồm: tính ứng dụng và các thách thức của bài toán, các phương pháp truyền thống, các phương pháp học sâu và cuối cùng là phương pháp mới xuất hiện trong hai năm trở lại đây và đạt được các kết quả đáng ngạc nhiên, graph convolutional network (GCN).
 
-%TODO: bài toán này xa xưa thì chỉ classification, sau này mới lên recognition
-% phần classification + detection = recogntion nên để ở Section 1 ?
-%TODO: có handcraft -> sau này: deep learning
-\subsection{Các thách thức của bài toán}
+\subsection{Khảo sát chung}
+Nhận diện hành động (action recognition) của con người có thể được chia thành hai bước là Phát hiện hành động (action detection) và Phân loại hành động (action classification).
 
-\subsection{Các phương pháp thuần thủ công (handcraft)}
+\begin{itemize}
+    \item Phân loại hành động là quá trình xác định hành động trong đoạn video được cắt ngắn và chỉ chứa duy nhất một hành động cần được phân loại. Đây là bước được các nhà nghiên cứu quan tâm từ rất sớm và đã có nhiều thành tự nhất định. % bắt buộc cite chỗ này
+    \item Phát hiện hành động là quá trình tìm ra khoảng thời gian bắt đầu và thời gian kết thúc của hành động trong một video dài chứa nhiều hành động. Đây là bước quan trọng để ứng dụng vào thực tế, tuy nhiên vẫn chưa được quan tâm nhiều, và vẫn còn là thách thức lớn cần giải quyết.
+\end{itemize}
+
+Các kỹ thuật nhận diện hành động ngày nay có thể được chia làm 4 loại dựa trên tính chất hành động:
+
+\begin{itemize} % cho vài nhận xét
+    \item Nhận diện các hành động cơ bản của một bộ phận trên cơ thể như vẫy tay, nhấc chân, uốn cong người...
+    \item Nhận diện hành động của nhiều bộ phận phối hợp nhau trên một cơ thể như đi bộ, nhảy xa, đấm.
+    \item Nhận diện hành động có sự tương tác giữa người và một đối tượng khác như đánh đàn, cầm dao....
+    \item Nhận diện hành động của một nhóm người như biểu tình, họp nhóm ...
+\end{itemize}
+
+\subsection{Khảo sát tính ứng dụng}
+
+\subsection{Khảo sát các thách thức}
+
+\subsection{Khảo sát tập dữ liệu}
+
+\subsection{Khảo sát các phương pháp truyền thống}
 
 \subsubsection{Phương pháp biểu diễn dữ liệu toàn cục}
 
@@ -34,8 +52,13 @@ Các phương pháp dựa trên STIP không chỉ trích xuất các đặc trư
 
 
 
-%TODO: hai phần này làm giống trong slide
-\subsection{Các phương pháp có ứng dụng mạng học sâu (deep network)}
+
+
+
+
+
+
+\subsection{Khảo sát các phương pháp học sâu}
 
 Trong những năm gần đây, việc ứng dụng học sâu vào thị giác máy tính đã nhận được nhiều sự quan tâm đáng kể. Nhiều phương pháp biểu diễn hành động dựa trên học sâu đã được đề xuất trong bài toán Nhận diện hành động trong video.
 
