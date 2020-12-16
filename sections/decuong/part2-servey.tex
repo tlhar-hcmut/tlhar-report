@@ -9,7 +9,7 @@ Trong chương này, sẽ trình bày khảo sát về bài toán Nhận diện 
 
 \subsection{Các phương pháp thuần thủ công (handcraft)}
 
-\subsubsection{Phương pháp dựa trên dữ liệu toàn cục}
+\subsubsection{Phương pháp biểu diễn dữ liệu toàn cục}
 
 Đây là phương pháp dựa vào các tính chất toàn cục về mặt thời gian và không gian của toàn bộ khung nhìn để trích suất vector đặc trưng từ dữ liệu. Phương pháp này mã hóa được các kiến thức về mặt không gian như các tư thế, các chuyển động theo thời gian. Và đây là các đặc trưng mạnh mẽ để nhận diện hành động.
 
@@ -22,12 +22,27 @@ Hai giải thuật đại diện cho phương pháp này là Motion History Imag
 
 Khả năng trích suất đặc trưng của hai giải thuật trên là rất ấn tượng khi trích suất trên tập dữ liệu có góc nhìn cố định, và chỉ có chủ thể cần nhận diện hành động là di chuyển. Hai điều kiện trên rất khó xảy ra trong thức tế, vì vậy cần những phương pháp khác phù hợp hơn.
 
+% TODO: 3DHOG 
 
+\subsubsection{Phương pháp biểu diễn dữ liệu cục bộ}
+
+Để khắc phục yếu điểm của phương pháp trích suất toàn cục, các phương pháp trích suất cục bộ đã ra đời, và hai đại diện nổi trội nhất cho phương pháp này là space-time interest points (STIP) và motion trajectory (MT).
+
+Các phương pháp dựa trên STIP không chỉ trích xuất các đặc trưng về không gian mà còn có thêm thời gian. Nhờ đó phương pháp này được sử dụng rộng rãi trong bài toán nhận diện hành động. Nó cho phép trích xuất được những chuyển động quan trọng từ video để biểu diện hành động. Hầu hết các phương pháp dựa trên STIP đều kế thừa từ các phương pháp phát hiện vật thể cổ điển dùng cho ảnh tĩnh. Phổ biến nhất có thể kể đến giải thuật 3D-Harris, KLT, SIFT, HOG-HOF-MBH, PCA.
+
+% Khó quá , Thức cứu Khôi nha <3
 
 
 
 %TODO: hai phần này làm giống trong slide
 \subsection{Các phương pháp có ứng dụng mạng học sâu (deep network)}
-%TODO: các phương pháp CNN3D, blahblah, có thêm GCN.
 
-%TODO: câu chốt : GCN là bá đạo nhất, dẫn chứng,.... nhóm quyết định sử dụng model GCN làm baseline phát triển lên
+Trong những năm gần đây, việc ứng dụng học sâu vào thị giác máy tính đã nhận được nhiều sự quan tâm đáng kể. Nhiều phương pháp biểu diễn hành động dựa trên học sâu đã được đề xuất trong bài toán Nhận diện hành động trong video.
+
+Các mô hình học sâu đó chủ yếu giải quyết đặc tính đặc biệt của dữ liệu đó dữ liệu dạng chuỗi các ảnh tĩnh. Và trong đó, các mô hình chủ yếu dựa trên 3 mô hình sau:
+
+\begin{itemize}
+    \item Two-stream convolutional networks. Giống như tên gọi, đầu vào của mô hình gồm 2 thành phầm. Một là ảnh tĩnh chứa thông tin về không gian. Hai là optical flow được tính từ chuỗi các frame hình, chứa thông tin về thời gian. Hai đầu vào sẽ được đưa vào hai mạng CNN nhằm trích suất kiến thức về không thời gian. Kết quả của hai nhánh sẽ được tổng hợp lại để phân loại.
+    \item 3D convolutional networks
+    \item long short-term memory (LSTM)
+\end{itemize}
