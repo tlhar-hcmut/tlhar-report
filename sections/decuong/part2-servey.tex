@@ -1,7 +1,31 @@
 \section{Các khảo sát liên quan đến đề tài}
+
+Trong chương này, sẽ trình bày khảo sát về bài toán Nhận diện hành động trong video. Bao gồm: thách thức của bài toán, phương pháp truyền thống, phương pháp deep learning và cuối cùng là phương pháp sử dụng mạng nơron tích chập trên đồ thị hay còn gọi là Graph convolutional network.
+
 %TODO: bài toán này xa xưa thì chỉ classification, sau này mới lên recognition
+% phần classification + detection = recogntion nên để ở Section 1 ?
 %TODO: có handcraft -> sau này: deep learning
+\subsection{Các thách thức của bài toán}
+
 \subsection{Các phương pháp thuần thủ công (handcraft)}
+
+\subsubsection{Phương pháp dựa trên dữ liệu toàn cục}
+
+Đây là phương pháp dựa vào các tính chất toàn cục về mặt thời gian và không gian của toàn bộ khung nhìn để trích suất vector đặc trưng từ dữ liệu. Phương pháp này mã hóa được các kiến thức về mặt không gian như các tư thế, các chuyển động theo thời gian. Và đây là các đặc trưng mạnh mẽ để nhận diện hành động.
+
+Hai giải thuật đại diện cho phương pháp này là Motion History Image (MHI) và Motion Energy Image (MEI). Cả hai phương pháp đều trích xuất hành động trong video thành 1 ảnh tỉnh duy nhất.
+
+\begin{itemize}
+    \item MEI tạo ra một mặt nạ chuyển động (motion mask). Tại các vùng có chuyển động xảy ra, mặt nạ có giá trị 1 và ngược lại là giá trị 0. Từ đó, sự phân bố không gian của chuyển động được biểu diễn và vùng sáng cho thấy nơi cả hành động xảy ra.
+    \item MHI tương tự như MEI, nhưng ngoài cho thấy được hành động diễn ra ở đâu thì MHI còn cho biết nó diễn ra như thế nào về mặt thời gian. Cường độ của mỗi pixel trên MHI thể hiện lịch sử chuyển động tại vị trí đó, trong đó các giá trị sáng hơn tương ứng với chuyển động gần đây hơn.
+\end{itemize}
+
+Khả năng trích suất đặc trưng của hai giải thuật trên là rất ấn tượng khi trích suất trên tập dữ liệu có góc nhìn cố định, và chỉ có chủ thể cần nhận diện hành động là di chuyển. Hai điều kiện trên rất khó xảy ra trong thức tế, vì vậy cần những phương pháp khác phù hợp hơn.
+
+
+
+
+
 %TODO: hai phần này làm giống trong slide
 \subsection{Các phương pháp có ứng dụng mạng học sâu (deep network)}
 %TODO: các phương pháp CNN3D, blahblah, có thêm GCN.
