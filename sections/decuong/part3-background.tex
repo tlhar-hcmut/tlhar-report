@@ -1,41 +1,76 @@
 \section{Kiến thức nền tảng}
 Trước khi đi vào nghiên cứu bài đề cương luận văn này, một số kiến thức nền tảng cần được nhắc lại như sau.
 \subsection{Các kiến thức toán cơ bản}
-%TODO: Ma trận, phép nhân covl, phép nhân element-wise, phép đạo hàm,.. 
-\textbf{Phép nhân tích chập ma trận (convolution)}
+\subsubsection{Phép nhân tích chập ma trận (convolution)}
 
-Nhân tích chập là phép toán quan trọng trong Xử lý ảnh số và thị giác máy tính, là công cụ chủ yếu để thực hiện
-các phép tính toán trên ảnh như đạo hàm ảnh, làm trơn ảnh hay trích xuất cạnh.
+Nhân tích chập là phép toán quan trọng trong Xử lý ảnh số và thị giác máy tính, là công cụ chủ yếu để thực hiện các phép tính toán trên ảnh như đạo hàm ảnh, làm trơn ảnh hay trích xuất cạnh.
 
-Trong toán học, tích chập là phép toán trên hai hàm f và g, tạo ra hàm thứ ba là hàm (f*g). Công thức phép tích
-chập trên miền liên tục một chiều như sau:
+Trong toán học, tích chập là phép toán trên hai hàm f và g, tạo ra hàm thứ ba là hàm (f*g). Công thức phép tích chập trên miền liên tục một chiều như sau:
 
 $(f*g)(t) \triangleq \displaystyle \int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau$
 
-
-Đối với trong Xử  lý ảnh, phép tích chập được tính trên miền không gian hai chiều, rời rạc. Công thức tính tích
-chập trên ảnh f và bộ lọc k (kích thước mxn) tại điểm ảnh vị trí (x,y) với giả sử chỉ số trên bộ lọc được đánh số hàng từ -m/2 -> m/2
-và chỉ số cột từ -n/2 -> n/2:
+Đối với trong Xử  lý ảnh, phép tích chập được tính trên miền không gian hai chiều, rời rạc. Công thức tính tích chập trên ảnh f và bộ lọc k (kích thước mxn) tại điểm ảnh vị trí (x,y) với giả sử chỉ số trên bộ lọc được đánh số hàng từ -m/2 -> m/2 và chỉ số cột từ -n/2 -> n/2:
 
 $(k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x-u,y-v)$
 
-Một phép toán tương tự covolution nhưng không xoay bộ lọc như trên, gọi là correlation (hình 1), công thức như sau:
+Một phép toán tương tự covolution nhưng không xoay bộ lọc như trên, gọi là correlation (hình \ref {fig:correlation}), công thức như sau:
 
 $(k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x+u,y+v)$
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/correlation.jpg}
         \caption{Phép correlation.}
+        \label{fig:correlation}
     \end{center}
 \end{figure}
 
 
 %chưa nhắc tới strike hay padding gì cả
 
+%graph
+\subsubsection{Đồ thị (graph)}
+
+Đồ thị là cấu trúc rời rạc bao gồm các cạnh và các đỉnh được kết nối với nhau thông qua các cạnh đó. Có nhiều loại đồ thị khác nhau, phụ thuộc vào việc có hay không các chiều (direction) của các cạnh, một hay nhiều cạnh cùng kết nối một cặp đỉnh và có chu kì hay không \cite{rosen2012discrete}. 
+
+\textbf{Định nghĩa:}
+
+Một đồ thị G=(V,E) bao gồm V, một tập không rỗng các đỉnh (hay nodes) và E, một tập các cạnh. Mỗi cạnh có một hoặc hai đỉnh liên kết với nó, gọi là endpoints. Một cạnh sẽ kết nối các endpoints của nó \cite{rosen2012discrete}. 
+
+\textbf{Phân loại đồ thị:}
+
+Đồ thị được chia thành nhiều loại dựa vào ba tiêu chí sau:
+\begin{enumerate}
+\item Đồ thị có hướng hoặc vô hướng.
+\item Đơn đồ thị hoặc đa đồ thị.
+\item Đồ thị có chu trình hoặc không có chu trình.
+\end{enumerate}
+
+Trong Đề cương luận văn này, loại đồ thị được tập trung chủ yếu là đồ thị đơn, vô hướng và không có chu trình. Sau đây ta đi vào cách xây dựng một graph model từ cấu trúc các khớp (joint), xương (bone) của các đối tượng người.
+
+Đối với khung xương người, mỗi khớp sẽ được mô hình hóa thành một đỉnh trong đồ thị, giá trị chứa trong đỉnh là tọa độ của khớp đó trong khung hình (với điểm gốc được định nghĩa tùy vào mục đích bài toán). Mỗi cạnh biểu thị hai đỉnh tương quan với nhau, tức là tồn tại xương giữa hai khớp đó. Độ dài ngắn biểu thị độ xa gần của các khớp. Tùy mục đích mà việc chọn các khớp nào,  hay các xương nào để  mô hình hóa bài toán. Ví dụ với bài toán nhận diện cử chỉ tay, việc tập trung chi tiết các khớp xương ở tay sẽ rất có giá trị, trong khi các khớp xương ở chân và các bộ phận khác sẽ không đóng góp nhiều, do đó không cần định nghĩa trong bài toán.
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\linewidth]{asset/image/skeleton.png}
+        \caption{Graph model cho khung xương người \cite{shi2020skeleton}. }
+        \label{fig:skeleton}
+    \end{center}
+\end{figure}
+
+Trong mô hình thực tế nhóm đang nghiên cứu, tức với mục tiêu nhận diện nhiều loại hành vi của con người, ngoài các cạnh biểu thị các xương sẵn có như hình \ref{fig:skeleton}, nhóm còn định nghĩa thêm các cạnh biểu thị sự tương quan giữa hai đỉnh mà nhóm cho là cần thiết cho mục tiêu bài toán, ví dụ các cạnh giữa hai khớp tay hay giữa khớp tay với khớp chân (hình \ref{fig:morebones}).
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\linewidth]{asset/image/morebones.png}
+        \caption{Graph model cho khung xương người với các cạnh bổ sung \cite{shi2020skeleton}. }
+        \label{fig:morebones}
+    \end{center}
+\end{figure}
 
 \subsection{Các kiến thức cơ bản về  Trí tuệ nhân tạo, học máy và học sâu}
 \subsubsection{Các kiến thức cơ bản}
 %TODO: gradient descent, overfit, underfit, hội tụ, bias, variant, weight, model, loss function, .. tham khảo machinelearningcoban để tránh thiếu sót
+%ANN co ban (duoc su dung trng bai: Batch norm, Convolution, resnet, activation: sigmoid, relu,..): embeđing, GCN 
 \textbf{Gradient descent - back propagation}
 
 \textbf{Overfitting}
