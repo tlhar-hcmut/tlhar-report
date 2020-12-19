@@ -33,9 +33,50 @@ Có thể thấy bài toán nhận diện hành động trong video mang lại n
 
 \subsection{Khảo sát các thách thức}
 
+Thách thức đầu tiên phải nói đến dữ liệu. Khác với với tập dữ liệu ảnh tỉnh, chỉ có các chiều dữ liệu không gian, tập dữ liệu cho bài toán này còn mở rộng thêm chiều thời gian. Thách thức đặt ra là ta cần tìm một phương pháp trích suất được tốt kiến thức của cả chiều không gian và thời gian. Đã có nhiều phương pháp được đưa ra, có thể  kể đến các phương pháp thủ công \ref{survey:method-handcraft}, các phương pháp học sâu \ref{survey:method-deep-learning}.
+
+Tuy nhiên các cách trích suất này chưa thực sự tốt cho kiểu dữ liệu skeleton, có dạng dữ liệu đồ thị. Trong tài liệu này nhóm trình bài mô hình graph convolutional network để xây dựng adaptive graph được lấy ý tưởng từ bài báo \cite{shi2020skeleton} và những cải tiến nhóm đề xuất.
+
 \subsection{Khảo sát tập dữ liệu}
 
+Có ba kiểu dữ liệu phổ biến được sử dụng cho bài toán:
+
+\begin{itemize}
+    \item Dữ liệu màu (RGB): Tập dữ liệu là một chuỗi các ảnh màu theo hệ màu RGB. Đây là dữ liệu phổ biến được sử dụng nhiều nhất.
+    \item Dữ liệu độ sâu (Depth): Tập dữ liệu là một chuỗi các ảnh độ sâu, với các giá trị càng lớn (càng sáng) là càng gần camera, các giá trị càng nhỏ (càng tối) là càng xa camera. Tập dữ liệu này mang lượng kiến thức về tư thế của con người khá tốt, bởi chủ thể luôn đứng gần camera hơn so với nền xung quanh. Tập dữ liệu này cũng được cộng đồng nghiên cứu nhiều và cho kết quả tốt.
+    \item Dữ liệu khung xương (skeleton): tập dữ liệu là một chuỗi các đồ thị biểu diễn khung xương của con người, mỗi khung xương chứa tập hợp các khớp (joint) được biểu diễn bằng tọa độ trong không gian 2 hoặc 3 chiều. Tập dữ liệu này gần đây mới được khai thác nhiều nhờ sự xuất hiện của giải thuật graph convolutional network. Nhóm sẽ chủ yế xử lý trên tập này.
+\end{itemize}
+
+Khá nhiều tập dữ liệu được công bố công khai cho bài toán nhận diện hành động. Nhóm đã tìm hiểu thông qua bài khảo sát \cite{zhang2019comprehensive} và bảng \ref{table:dataset-popular} được trích lại từ \cite{zhang2019comprehensive}:
+
+
+Trong các tập dữ liệu được liệt kê, tập dữ liệu có số góc nhìn, số chủ thể, số camera, số class nhiều nhất là tập NTU RGB+D. Tập dữ liệu này có đủ cả 3 loại dữ liệu về RGB, độ sâu và skeleton. Nhóm đã quyết định chọn tập dữ liệu này để thực nghiệm.
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|c|c|c|l|l|}
+        \hline
+        Dataset Name       & Color   & Depth   & Skeleton & Samples & Classes \\ \hline
+        Hollywood2         & $\surd$ & $X$     & $X$      & 1707    & 12      \\ \hline
+        HMDB51             & $\surd$ & $X$     & $X$      & 6766    & 51      \\ \hline
+        Olympic Sports     & $\surd$ & $X$     & $X$      & 783     & 16      \\ \hline
+        UCF50              & $\surd$ & $X$     & $X$      & 6618    & 50      \\ \hline
+        UCF101             & $\surd$ & $X$     & $X$      & 13,320  & 101     \\ \hline
+        Kinetics           & $\surd$ & $X$     & $X$      & 306,245 & 400     \\ \hline
+        MSR-Action3D       & $X$     & $\surd$ & $\surd$  & 567     & 20      \\ \hline
+        MSR-Daily Activity & $\surd$ & $\surd$ & $\surd$  & 320     & 16      \\ \hline
+        Northwestern-UCLA  & $\surd$ & $\surd$ & $\surd$  & 1475    & 10      \\ \hline
+        UTD-MHAD           & $\surd$ & $\surd$ & $\surd$  & 861     & 27      \\ \hline
+        RGBD-HuDaAct       & $\surd$ & $\surd$ & $X$      & 1189    & 13      \\ \hline
+        NTU RGB+D          & $\surd$ & $\surd$ & $\surd$  & 56,880  & 60      \\ \hline
+    \end{tabular}
+    \caption{Các tập dữ liệu phổ biến cho bài toán nhận diện hành động}
+    \label{table:dataset-popular}
+\end{table}
+
 \subsection{Khảo sát các phương pháp truyền thống}
+\label{survey:method-handcraft}
 
 \subsubsection{Phương pháp biểu diễn dữ liệu toàn cục}
 
@@ -69,6 +110,7 @@ Các phương pháp dựa trên STIP không chỉ trích xuất các đặc trư
 
 
 \subsection{Khảo sát các phương pháp học sâu}
+\label{survey:method-deep-learning}
 
 Trong những năm gần đây, việc ứng dụng học sâu vào thị giác máy tính đã nhận được nhiều sự quan tâm đáng kể. Nhiều phương pháp biểu diễn hành động dựa trên học sâu đã được đề xuất trong bài toán Nhận diện hành động trong video.
 
