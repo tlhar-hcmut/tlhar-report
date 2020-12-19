@@ -114,10 +114,15 @@ Trong đó giá trị $\eta$ thường được gọi là \textit{tốc độ h�
 
 \textbf{Overfitting}
 
+Trong học máy, để một mô hình (model) có thể hoạt động được, ta cần một quá trình giúp mô hình thu nạp kiến thức cần thiết cho việc hoạt động của mô hình, đó được gọi là quá trình học. Quá trình học giúp mô hình có thể cải thiện mức độ khớp (fit) giữa input và output trong tập dữ liệu huấn luyện (training set). Nhưng việc một mô hình có mức độ khớp vượt quá mức cần thiết (overfit) sẽ mang lại hiểu quả không cao, vì lúc này tính tổng quát của mô hình bị giảm đáng kể. Khi một mô hình bị overfit, các tham số của mô hình có xu hướng mô tả chính xác tập dữ liệu huấn luyện nhưng không có khả năng đưa ra phán đoán tốt cho những dữ liệu input mà nó chưa được thấy, đây là điều cần tránh trong học máy.
 
-\textbf{Hội tụ}
+Trái với hiện tượng này là underfitting, đây là trường hợp mà mô hình chưa được thu nạp đủ kiến thức cho việc đưa ra phán đoán, do đó dẫn tới hiện tượng phán đoán sai trên ngay cả tập dữ liệu huấn luyện và dữ liệu kiểm thử.
+
+Một số phương pháp để giảm hiện tượng overfitting có thể kể tới là validation (hoặc cross-validation nếu tập dữ liệu hạn chế), regularization và early stopping \cite{tiep2018machine}.
 
 \textbf{Variance - bias}
+
+\textbf{Hội tụ}
 
 \textbf{Objective function - loss function}
 
