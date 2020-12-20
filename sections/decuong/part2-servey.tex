@@ -82,7 +82,7 @@ Trong các tập dữ liệu được liệt kê, tập dữ liệu có số gó
 
 Đây là phương pháp dựa vào các tính chất toàn cục về mặt thời gian và không gian của toàn bộ khung nhìn để trích suất vector đặc trưng từ dữ liệu. Phương pháp này mã hóa được các kiến thức về mặt không gian như các tư thế, các chuyển động theo thời gian. Và đây là các đặc trưng mạnh mẽ để nhận diện hành động.
 
-Hai giải thuật đại diện cho phương pháp này là Motion History Image (MHI) và Motion Energy Image (MEI). Cả hai phương pháp đều trích xuất hành động trong video thành 1 ảnh tỉnh duy nhất.
+Hai giải thuật đại diện cho phương pháp này là Motion History Image (MHI) và Motion Energy Image (MEI). Cả hai phương pháp đều trích xuất hành động trong video thành 1 ảnh tỉnh duy nhất \cite{ahad2012motion}.
 
 \begin{itemize}
     \item MEI tạo ra một mặt nạ chuyển động (motion mask). Tại các vùng có chuyển động xảy ra, mặt nạ có giá trị 1 và ngược lại là giá trị 0. Từ đó, sự phân bố không gian của chuyển động được biểu diễn và vùng sáng cho thấy nơi cả hành động xảy ra.
@@ -91,23 +91,15 @@ Hai giải thuật đại diện cho phương pháp này là Motion History Imag
 
 Khả năng trích suất đặc trưng của hai giải thuật trên là rất ấn tượng khi trích suất trên tập dữ liệu có góc nhìn cố định, và chỉ có chủ thể cần nhận diện hành động là di chuyển. Hai điều kiện trên rất khó xảy ra trong thức tế, vì vậy cần những phương pháp khác phù hợp hơn.
 
-% TODO: 3DHOG 
-
 \subsubsection{Phương pháp biểu diễn dữ liệu cục bộ}
 
 Để khắc phục yếu điểm của phương pháp trích suất toàn cục, các phương pháp trích suất cục bộ đã ra đời, và hai đại diện nổi trội nhất cho phương pháp này là space-time interest points (STIP) và motion trajectory (MT).
 
-Các phương pháp dựa trên STIP không chỉ trích xuất các đặc trưng về không gian mà còn có thêm thời gian. Nhờ đó phương pháp này được sử dụng rộng rãi trong bài toán nhận diện hành động. Nó cho phép trích xuất được những chuyển động quan trọng từ video để biểu diện hành động. Hầu hết các phương pháp dựa trên STIP đều kế thừa từ các phương pháp phát hiện vật thể cổ điển dùng cho ảnh tĩnh. Phổ biến nhất có thể kể đến giải thuật 3D-Harris, KLT, SIFT, HOG-HOF-MBH, PCA.
+\textbf{Các phương pháp dựa trên STIP} nhận được nhiều sự quan tâm của cộng đồng nghiên cứu vì không chỉ trích xuất các vùng quan trọng về không gian mà còn thời gian. Nhờ đó phương pháp này được sử dụng rộng rãi trong bài toán nhận diện hành động. Nó cho phép trích xuất được những chuyển động quan trọng từ video để biểu diện hành động. Hầu hết các phương pháp dựa trên STIP đều kế thừa từ các phương pháp phát hiện vật thể cổ điển dùng cho ảnh tĩnh như Haris, HOG \cite{seemanthini2018human}. Từ "interest points" trong STIP chỉ ra những điểm có sự thay đổi đáng kể trong chiều không thời gian. Phổ biến nhất cho phương pháp này có thể kể đến giải thuật 3D-Harris do Laptev đề xuất trong \cite{laptev2005space}. Nhờ đó các giải thuật này không yêu cầu phải tiền xử lý phần khung nền (background) hay phải xác định chủ thể trong khung nhìn (human detection).
 
-% Khó quá , Thức cứu Khôi nha <3
+\textbf{Các phương pháp dựa trên MT} thường sử dụng cho dữ liệu dạng skeleton. Giải thuật ghi vết lại quỹ đạo di chuyển của các khớp nhằm biểu diễn hành động. Đối với dữ liệu RGB, giải thuật cần tìm ra tập các điểm quan trọng để ghi vết. Đại diện cho phương pháp này là improved dense trajectories (iDT) \cite{wang2013action}, phương pháp sử dụng SURF điểm tìm ra các "interest points" và tính toán optical flow trên chúng.
 
-
-
-
-
-
-
-
+Giải thuật này đã khắc phục những nhược điểm của phương pháp biểu diễn dữ liệu toàn cục nhóm đã nêu, đó góc nhìn cố định và chỉ có chủ thể  cần xác định hành động di chuyển.
 
 \subsection{Khảo sát các phương pháp học sâu}
 \label{survey:method-deep-learning}
@@ -117,8 +109,11 @@ Trong những năm gần đây, việc ứng dụng học sâu vào thị giác 
 Các mô hình học sâu đó chủ yếu giải quyết đặc tính đặc biệt của dữ liệu đó dữ liệu dạng chuỗi các ảnh tĩnh. Và trong đó, các mô hình chủ yếu dựa trên 3 mô hình sau:
 
 
-\textbf{3D convolutional networks:} mô hình này là sử mở rộng của 2D ConvNets vì chúng thu thêm thông tin về thời gian. Đây là một trong những phương pháp đầu tiên ứng dụng CNN để nhận diện hành động. Tuy nhiên phương pháp này tốn chi phí tính toán lớn, vì phải thực hiện 3D convolution trên nhiều frame liền kề nhau để trích suất cả thông tin về không gian và thời gian. Giải thuật này có hạn chế  rõ ràng là chúng thường xét các khoảng thời gian rất ngắn, thường khoảng 16 hay 32 khung hình để giảm chi phí tính toán.
+\textbf{3D convolutional networks:} mô hình này là sử mở rộng của 2D ConvNets vì chúng thu thêm thông tin về thời gian. Đây là một trong những phương pháp đầu tiên ứng dụng CNN để nhận diện hành động. Tuy nhiên phương pháp này tốn chi phí tính toán lớn, vì phải thực hiện 3D convolution trên nhiều frame liền kề nhau để trích suất cả thông tin về không gian và thời gian. Giải thuật này có hạn chế  rõ ràng là chúng thường xét các khoảng thời gian rất ngắn, thường khoảng 16 hay 32 khung hình để giảm chi phí tính toán \cite{ji20123d}.
 
-\textbf{Two-stream convolutional networks:} Giống như tên gọi, đầu vào của mô hình gồm 2 thành phầm. Một là ảnh tĩnh chứa thông tin về không gian. Hai là optical flow được tính từ chuỗi các frame hình, chứa thông tin về thời gian. Hai đầu vào sẽ được đưa vào hai mạng CNN nhằm trích suất kiến thức về không thời gian. Kết quả của hai nhánh sẽ được tổng hợp lại để phân loại.
+\textbf{Two-stream convolutional networks:} Giống như tên gọi, đầu vào của mô hình gồm 2 thành phần. Một là ảnh tĩnh chứa thông tin về không gian. Hai là optical flow được tính từ chuỗi các frame hình, chứa thông tin về thời gian. Hai đầu vào sẽ được đưa vào hai mạng CNN nhằm trích suất kiến thức về không thời gian. Kết quả của hai nhánh sẽ được tổng hợp lại để phân loại \cite{simonyan2014two}.
 
-\textbf{Long short-term memory (LSTM):} Một cách tiếp cận khác để trích suất được thông tin về thời gian đó là thêm lớp họ RNN và CNN 2D, chẳng hạn như LSTM. Nhờ đó mô hình này có thể được khả năng hiểu dữ liệu không gian mạnh mẽ của CNN và trí nhớ dài hạn của LSTM.
+\textbf{Long short-term memory (LSTM):} Một cách tiếp cận khác để trích suất được thông tin về thời gian đó là thêm lớp họ RNN và CNN 2D, chẳng hạn như LSTM. Nhờ đó mô hình này có thể được khả năng hiểu dữ liệu không gian mạnh mẽ của CNN và trí nhớ dài hạn của LSTM \cite{liu2016spatio}.
+
+Và đặc biệt, vào năm 2018, Yan đã lần đầu tiên ứng dụng thành công mô hình graph convolutional network cho bài toán Nhận diện hành động qua video \cite{yan2018spatial}. Tuy nhiên Yan sử dụng đầu vào là khung xương người với các cạnh nối theo một tự nhiên, như đầu nối với cổ, vai nối khủy tay. Và rõ ràng các cạnh đó có mức quan trọng khác nhau đối với từng hành động khác nhau. Ví dụ như hành đồng vỗ tay, cạnh nối giữa 2 bàn tay có mang rất nhiều kiến thức, còn cạnh nối bàn chân và đầu gối gàn như không mang ý nghĩa. Do vậy, năm 2019, Lei Shi đã đề xuất mô hình adaptive graph convolutional network cho phép xây dụng ma trận liền kề phù hợp với từng hành động \cite{shi2020skeleton}, các cạnh mang nhiều kiến thức được tăng cường hoặc nối thêm. Bài báo đã cho kết quả cao hơn đối với các phương pháp dựa trên RNN và CNN truyền thống. Và nhóm quyết định xây dựng mô hình dựa trên công trình này.
+
