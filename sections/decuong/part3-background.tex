@@ -1,14 +1,14 @@
 \section{Kiến thức nền tảng}
 Trước khi đi vào nghiên cứu bài đề cương luận văn này, một số kiến thức nền tảng cần được nhắc lại như sau.
 \subsection{Các kiến thức toán cơ bản}
-\subsubsection{Phép nhân tích chập ma trận (convolution)}
+\subsubsection{Phép nhân tích chập ma trận (convolution)}\label{convlop}
 
 Nhân tích chập là phép toán quan trọng trong Xử lý ảnh số và thị giác máy tính, là công cụ chủ yếu để thực hiện các phép tính toán trên ảnh như đạo hàm ảnh, làm trơn ảnh hay trích xuất cạnh.
 
 Trong toán học, tích chập là phép toán trên hai hàm f và g, tạo ra hàm thứ ba là hàm (f*g). Công thức phép tích chập trên miền liên tục một chiều như sau:
 
 \begin{equation}
-(f*g)(t) \triangleq \displaystyle \int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau
+    (f*g)(t) \triangleq \displaystyle \int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau
 \end{equation}
 
 Đối với trong Xử  lý ảnh, phép tích chập được tính trên miền không gian hai chiều, rời rạc. Công thức tính tích chập trên ảnh f và bộ lọc k (kích thước mxn) tại điểm ảnh vị trí (x,y) với giả sử chỉ số trên bộ lọc được đánh số hàng từ -m/2 -> m/2 và chỉ số cột từ -n/2 -> n/2:
@@ -22,7 +22,7 @@ Trong toán học, tích chập là phép toán trên hai hàm f và g, tạo ra
 
 Một phép toán tương tự covolution nhưng không xoay bộ lọc như trên, gọi là correlation (hình \ref {fig:correlation}), công thức như sau:
 \begin{equation}
-(k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x+u,y+v)
+    (k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x+u,y+v)
 \end{equation}
 
 
@@ -39,19 +39,19 @@ Một phép toán tương tự covolution nhưng không xoay bộ lọc như tr�
 %graph
 \subsubsection{Đồ thị (graph)}
 
-Đồ thị là cấu trúc rời rạc bao gồm các cạnh và các đỉnh được kết nối với nhau thông qua các cạnh đó. Có nhiều loại đồ thị khác nhau, phụ thuộc vào việc có hay không các chiều (direction) của các cạnh, một hay nhiều cạnh cùng kết nối một cặp đỉnh và có chu kì hay không \cite{rosen2012discrete}. 
+Đồ thị là cấu trúc rời rạc bao gồm các cạnh và các đỉnh được kết nối với nhau thông qua các cạnh đó. Có nhiều loại đồ thị khác nhau, phụ thuộc vào việc có hay không các chiều (direction) của các cạnh, một hay nhiều cạnh cùng kết nối một cặp đỉnh và có chu kì hay không \cite{rosen2012discrete}.
 
 \textbf{Định nghĩa:}
 
-Một đồ thị G=(V,E) bao gồm V, một tập không rỗng các đỉnh (hay nodes) và E, một tập các cạnh. Mỗi cạnh có một hoặc hai đỉnh liên kết với nó, gọi là endpoints. Một cạnh sẽ kết nối các endpoints của nó \cite{rosen2012discrete}. 
+Một đồ thị G=(V,E) bao gồm V, một tập không rỗng các đỉnh (hay nodes) và E, một tập các cạnh. Mỗi cạnh có một hoặc hai đỉnh liên kết với nó, gọi là endpoints. Một cạnh sẽ kết nối các endpoints của nó \cite{rosen2012discrete}.
 
 \textbf{Phân loại đồ thị:}
 
 Đồ thị được chia thành nhiều loại dựa vào ba tiêu chí sau:
 \begin{enumerate}
-\item Đồ thị có hướng hoặc vô hướng.
-\item Đơn đồ thị hoặc đa đồ thị.
-\item Đồ thị có chu trình hoặc không có chu trình.
+    \item Đồ thị có hướng hoặc vô hướng.
+    \item Đơn đồ thị hoặc đa đồ thị.
+    \item Đồ thị có chu trình hoặc không có chu trình.
 \end{enumerate}
 
 Trong Đề cương luận văn này, loại đồ thị được tập trung chủ yếu là đồ thị đơn, vô hướng và không có chu trình. Sau đây ta đi vào cách xây dựng một graph model từ cấu trúc các khớp (joint), xương (bone) của các đối tượng người.
@@ -61,17 +61,17 @@ Trong Đề cương luận văn này, loại đồ thị được tập trung ch
 \begin{figure}[!ht]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/skeleton.png}
-        \caption{Graph model cho khung xương người \cite{shi2020skeleton}. }
+        \caption{Graph model cho khung xương người (tham khảo \cite{shi2020skeleton}). }
         \label{fig:skeleton}
     \end{center}
 \end{figure}
 
 Trong mô hình thực tế nhóm đang nghiên cứu, tức với mục tiêu nhận diện nhiều loại hành vi của con người, ngoài các cạnh biểu thị các xương sẵn có như hình \ref{fig:skeleton}, nhóm còn định nghĩa thêm các cạnh biểu thị sự tương quan giữa hai đỉnh mà nhóm cho là cần thiết cho mục tiêu bài toán, ví dụ các cạnh giữa hai khớp tay hay giữa khớp tay với khớp chân (hình \ref{fig:morebones}).
 
-\begin{figure}[!ht]
+\begin{figure}[t]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/morebones.png}
-        \caption{Graph model cho khung xương người với các cạnh bổ sung \cite{shi2020skeleton}. }
+        \caption{Graph model cho khung xương người với các cạnh bổ sung (tham khảo \cite{shi2020skeleton}). }
         \label{fig:morebones}
     \end{center}
 \end{figure}
@@ -82,7 +82,21 @@ Trong mô hình thực tế nhóm đang nghiên cứu, tức với mục tiêu n
 %ANN co ban (duoc su dung trng bai: Batch norm, Convolution, resnet, activation: sigmoid, relu,..): embeđing, GCN 
 \textbf{Gradient descent - back propagation}
 
-Trong các bài toán tối ưu, việc sử dụng đạo hàm là phương pháp chủ yếu để tìm các điểm cực trị. Việc giải phương trình đạo hàm bằng không đưa ra một tập nghiệm mà tại đó ta chọn ra được các điểm cực trị cần tìm  một cách chính xác. Tuy nhiên với một số bài toán phức tạp, hay các bài toán bất khả vi thì việc tính đạo hàm cũng như giải phương trình đạo hàm bằng không là rất khó, thậm chí là không tồn tại nghiệm. Điều đó đặc biệt đúng trong ngữ cảnh máy học, việc tính chính xác điểm cực trị trong các mô hình học sâu gần như là bất khả thi. Một phương pháp thay thế  để đơn giản hóa việc này, tuy nhiên vẫn giữ được độ chính xác tương đối để đáp ứng nhu cầu bài toán được gọi là \textit{Gradient descent}.
+Trong các bài toán tối ưu, việc sử dụng đạo hàm là phương pháp chủ yếu để tìm các điểm cực trị. Việc giải phương trình đạo hàm bằng không đưa ra một tập nghiệm mà tại đó ta chọn ra được các điểm cực trị cần tìm  một cách chính xác. Tuy nhiên với một số bài toán phức tạp, hay các bài toán bất khả vi thì việc giải phương trình đạo hàm bằng không là rất khó, thậm chí là không tồn tại nghiệm. Điều đó đặc biệt đúng trong ngữ cảnh máy học, việc tính chính xác điểm cực trị trong các mô hình học sâu gần như là bất khả thi. Một phương pháp thay thế  để đơn giản hóa việc này, tuy nhiên vẫn giữ được độ chính xác tương đối để đáp ứng nhu cầu bài toán được gọi là \textit{Gradient descent}.
+
+% ******************************************************************************
+\begin{figure}[!ht]
+    % caption on side     
+    \floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,top},capbesidewidth=6cm}}]{figure}[\FBwidth]
+    {\caption{
+            Khảo sát sự biến thiên của một đa thức bậc hai (tham khảo \cite{tiep2018machine}).
+        }
+        \label{fig:grad}}
+    { % figure here
+        \includegraphics[width=.5\textwidth]{asset/pdf/gradient_descent.pdf}
+    }
+\end{figure}
+% ********
 
 Để  hiểu đươc ý tưởng của \textit{gradient descent}, ta đi vào nghiên cứu ứng dụng của phương pháp  để tìm điểm cực trị của hàm một biến. Xét hàm số $f(x) = \frac{1}{2}(x-1)^2 -2$ có độ thị như hình \ref{fig:grad}, mục tiêu là sử dụng gradient descent để đưa giá trị mà ta cho là nghiệm xấp xỉ $x_t$ về gần với nghiệm thực sự $x^*$. Ta khảo sát đạo hàm $f'(t)$ tại điểm $x_t$ như sau:
 
@@ -94,23 +108,12 @@ Trong các bài toán tối ưu, việc sử dụng đạo hàm là phương ph�
 Tổng hợp hai trường hợp trên, ta đều phải dời $x_t$ theo chiều ngược lại với giá trị đào hàm tại đó, điều này tương đương với công thức sau:
 
 \begin{equation}
-x_(t+1) = x_t - \eta f'(t) 
+    x_(t+1) = x_t - \eta f'(t)
 \end{equation}
 
-Trong đó giá trị $\eta$ thường được gọi là \textit{tốc độ học (learning rate)}. Dấu trừ biểu thị cho việc dời $x_t$ ngược chiều với giá trị đạo hàm. (tham khảo \cite{tiep2018machine}) 
-% ******************************************************************************
-\begin{figure}[t]
-    % caption on side     
-    \floatbox[{\capbeside\thisfloatsetup{capbesideposition={right,top},capbesidewidth=6cm}}]{figure}[\FBwidth]
-    {\caption{ 
-    Khảo sát sự biến thiên của một đa thức bậc hai \cite{tiep2018machine}. 
-    }
-    \label{fig:grad}}
-    { % figure here
-    \includegraphics[width=.5\textwidth]{asset/pdf/gradient_descent.pdf}
-    }
-\end{figure}
-% ********
+Trong đó giá trị $\eta$ thường được gọi là \textit{tốc độ học (learning rate)}. Dấu trừ biểu thị cho việc dời $x_t$ ngược chiều với giá trị đạo hàm. (tham khảo \cite{tiep2018machine})
+
+Trong học máy, Gradient descent ứng dụng cho việc cập nhật các tham số giữa các layer của mạng. Việc cập nhật các tham số này (trình bày ở mục \ref{ann}) sẽ được thực thi từ layer cuối cùng trở về trước, do việc tính đạo hàm phải bắt đầu theo thứ tự đó. Quá trình cập nhật tham số  này được gọi là lan truyền ngược (back propagation).
 
 \textbf{Overfitting}
 
@@ -118,20 +121,86 @@ Trong học máy, để một mô hình (model) có thể hoạt động đượ
 
 Trái với hiện tượng này là underfitting, đây là trường hợp mà mô hình chưa được thu nạp đủ kiến thức cho việc đưa ra phán đoán, do đó dẫn tới hiện tượng phán đoán sai trên ngay cả tập dữ liệu huấn luyện và dữ liệu kiểm thử.
 
-Một số phương pháp để giảm hiện tượng overfitting có thể kể tới là validation (hoặc cross-validation nếu tập dữ liệu hạn chế), regularization và early stopping \cite{tiep2018machine}.
+Một số phương pháp để giảm hiện tượng overfitting có thể kể tới là validation (hoặc cross-validation nếu tập dữ liệu hạn chế), regularization và early stopping (được trình bày trong tham khảo \cite{tiep2018machine}).
 
 \textbf{Variance - bias}
 
-\textbf{Hội tụ}
+Trong học máy, hai khái niệm quan trọng cần biết để giúp việc điều chỉnh mô hình tốt hơn đó là \textit{bias} và \textit{variance}. Hai khái niệm này còn được gọi là sai số dự đoán (prediction errors). Để đơn giản, lấy ví dụ trong bài toán Hồi quy tuyến tính (linear regression), giả sử ta có tập dữ liệu huấn luyện với mối quan hệ input, output như sau:
+\begin{equation}
+    Y = f(X) + e
+\end{equation}
 
-\textbf{Objective function - loss function}
+Trong đó e là phần sai số (error term), thông thường tuân theo một phân phối với giá trị mean bằng không ($E(e)=0$), X,Y là input và output tương ứng trong tập dữ liệu huấn luyện $\tau$.
+Xét bài toán hồi quy tuyến tính nhằm tìm xấp xỉ $\widehat{f}(X)$ của $f(X)$. Hàm lỗi được chọn là trung bình bình phương (mean square error) như sau:
 
-\textbf{Artificial neural network}
+\begin{subequations}\label{eqn}
+    \begin{align*}
+        Error(\widehat{f},\tau) & = E(Y- \widehat{f}(X))^2)                      \\
+                                & = E(f(X)+e- \widehat{f}(X))^2) \tag{\ref{eqn}}
+    \end{align*}
+\end{subequations}
+
+Lúc này giá trị Bias và Variance lần lượt:
+
+\begin{equation}\label{bias}
+    Bias(\widehat{f},\tau) = E(  (f(X) - E(   \widehat{f}(X)))^2 )
+\end{equation}
+\begin{equation}\label{var}
+    Variance(\widehat{f},\tau) = E(  (E(\widehat{f}(X)) - \widehat{f}(X))^2 )
+\end{equation}
+
+Thay các giá trị tương ứng từ \ref{bias} và \ref{var} vào \ref{eqn} ta được:
+
+\begin{equation}
+    Error(\widehat{f},\tau) = Bias(\widehat{f},\tau) +  Variance(\widehat{f},\tau) + E(e^2)
+\end{equation}
+
+Trong đó $E(e^2)$ là lượng không thay đổi được, từ đó cho thấy giá trị bias và variance ảnh hưởng trực tiếp tới sai số dự đoán của mô hình.
+
+Một cách trực quan có thể xem hình \ref{fig:bias} sau:
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\linewidth]{asset/image/bias.png}
+        \caption{Minh họa trực quan bias và variance (tham khảo \cite{breiman1996bias}). }
+        \label{fig:bias}
+    \end{center}
+\end{figure}
+
+Một vấn đề khi cố gắng giảm bias thì variance sẽ tăng, và ngược lại, vấn đề này gọi là variance-bias tradeoff. Trong khi xây dựng mô hình, cần lựa chọn đánh đổi phù hợp để chọn được mô hình tốt nhất cho bài toán.
+
+\textbf{Loss function (cost function)} (tham khảo \cite{tiep2018machine})
+
+Để một mô hình học máy có thể cải thiện theo xu hướng mong muốn, cần có một chỉ dẫn để việc cập nhật các tham số theo hướng có tốt hơn. Việc chỉ dẫn này được cụ thể hóa bằng một hàm số gọi là hàm mất mát (loss function hoặc cost function). Thông thường khi hàm mất mát đạt giá trị càng thấp thì mô hình có khả năng dự đoán càng chính xác. Nói cách khác, việc xây dựng mô hình cũng giống như việc tối ưu một hàm số, quá trình tối ưu đó, trong học máy gọi là \textit{learning}. Ký hiệu của hàm mất mát $J(\theta)$, khi đó tham số cần tìm là:
+
+\begin{equation}
+    \theta ^* = \underset{\theta}{\operatorname{argmin(J(\theta))}}
+\end{equation}
+
+
+\textbf{Mạng nơ-ron nhân tạo (artificial neural network)}\label{ann} (tham khảo \cite{abraham2005artificial})
+
+Mạng nơ-ron nhân tạo là một lĩnh vực nghiên cứu trong học máy, có nhiệm vụ cố gắng mô phỏng cách mà não bộ con người phân tích và xử lý thông tin. Sự ra đời của kiến trúc này đã giúp giải được các bài toán khó và phức tạp đối con người hay các phương pháp thống kê thông thường. Đây là kiến trúc có khả năng tự học và cải thiện khả năng để đưa ra kết quả tốt hơn khi nhiều dữ liệu được cung cấp cho mạng. Mô phỏng kiến trúc một ANN đơn giản như hình \ref{fig:anniamg}.
+
+\begin{figure}[t]
+    \begin{center}
+        \includegraphics[scale=0.2]{asset/image/anniamg.png}
+        \caption{Kiến trúc một ANN đơn giản. }
+        \label{fig:anniamg}
+    \end{center}
+\end{figure}
+
+Trong đề cương luận văn này, một số loại mạng nơ-ron nhân tạo được ứng dụng, cụ thể là: mạng tích chập thông thường (Convolutional neural network), mạng tích chập đồ thị (Graph convolutional network) với các layer khác được thêm vào hay bớt đi để phù hợp với mục đích bài toán. 
 
 Sau đây sẽ đi qua một vài loại layer quan trọng được sử dụng trong bài toán.
 \begin{itemize}
-    \item Convolution layer
-    \item Graph convolution layer 
+    \item Convolutional layer:
+
+    Trong xử lý ảnh, thông thường thuộc tính toàn cục (global) của bức hình không chứa nhiều giá trị bằng thuộc tính cục bộ (local). Vì vậy Kunihiko Fukushima đã đưa ra một loại layer rất phổ biến ngày nay với tên gọi Convolutional  layer(tham khảo \cite{fukushima1988neocognitron}).
+    
+    Convolutional layer sử dụng phép toán tích chập ma trận (được trình bày ở mục \ref{convlop}) để rút trích đặc trưng cục bộ của bức hình. Phương pháp này đem lại hiệu quả đáng kể trong xử lý hình ảnh với khả năng khai thác đặc tính không gian của bức hình.
+
+    \item Graph convolution layer
+    \item 
     \item BatchNorm layer
     \item Resnet layer
     \item Activation function: sigmoid
