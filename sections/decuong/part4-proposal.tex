@@ -1,4 +1,30 @@
 \section{Phương pháp đề xuất}
-%TODO: cách tiếp cận: dùng openPose: RGB-> skeleton, dùng GCN: skeleton-> action
 
-%Hướng giải quyết đề tài: chưa rõ phần này
+\subsection{Adaptive Graph Convolution Network}
+Hình \ref{fig:agcn} được nhóm trích từ bài báo \cite{shi2020skeleton} biểu diễn mô hình AGCN mà nhóm lấy ý tưởng.
+
+
+Dữ liệu đầu vào của layer AGCN gồm ma trận có kích thức $C_{in} \times T \times N$. Trong đó $C_{in}$ là số chiều của tọa độ biểu diễn khớp (trong tập dữ liệu nhóm lựa chọn thì $C_{in} = 3$ tương ứng với tọa x,y,z trong không gian 3 chiều), $T$ là số frame hình và $N$ là số khớp của khung xương (trong tập dữ liệu nhóm chọn có 25 khớp).
+
+Ban đầu dữ liệu liệu sẽ được đi qua 2 mạng tích chập với kích kernel là $1 \times 1$ để nhúng tọa độ $C_{in}$ chiều thành 1 vector nhúng có kích thước $C_e$ mang nhiều kích thức hơn vector tọa độ ban đầu ($C_e > C_{in}$). Từ đây ta nhân 2 ma trận sau khi nhúng để được ma trận kích thước $NxN$, và cho qua hàm softmax theo cột ta được ma trận $C_k$. Khi đó mỗi cột có thứ tự $i$ của ma trận $C_k$ là một phân phối xác xuất có $N$ phần phần tử , với mỗi phần thử thể hiện mới độ tương quan của các đỉnh đối với khớp $i$. Từ đây $C_k$ chính là trọng số để số xây dựng adaptive matrix (AM).
+
+$B_k$ chính là ma trận liền kề được xây dựng từ dữ liệu skeleton ban đầu gồm các cạnh được nối một cách tự nhiên theo khung xương con người. Một ma trận liền kề mới là $C_k + B_k$ mang thêm các cạnh mà mô hình cho là quan trọng trong việc phân loại hành động.
+
+Ma trận trận liền kề mới sẽ được nhân vào dữ liệu ban đầu để thay đổ lại mức độ quan trọng giữa các đỉnh. Sau đó tiếp tự được đưa qua lớp tích chập có kernel $1 \times 1$ để nhúng vector tọa độ ra kích thước $C_{out}$ mà nhóm mong muốn nhằm trích suất nhiều thông tin hơn từ một khớp.
+
+Khác với tập RGB, các mô hình học máy thường nhúng một vùng ảnh RGB qua tích chập thì ở dữ liệu skeleton ta nên nhúng từng khớp. Bởi một pixel trong ảnh RGB mang rất ít kiến thức, nhưng một khớp có tọa độ x, y, z lại chứa rất nhiều kiến thức.
+
+Hình \ref{fig:morebones} cho thấy kết quả sau khi đi qua các layer AGCN, cạnh màu xanh là cách cạnh của khung xương người ban đầu, màu cam là các cạnh được mô hình học và nối thêm.
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\linewidth]{asset/image/agcn.png}
+        \caption{Adaptive graph convolutional network}
+        \label{fig:agcn}
+    \end{center}
+\end{figure}
+
+Mô hình này đã được nhóm hiện thực lại bằng Pytorch và trình bày ở mục \ref{section:result}
+
+\subsection{Hướng đề xuất cải tiến mô hình}
+
