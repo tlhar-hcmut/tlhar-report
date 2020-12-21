@@ -199,21 +199,95 @@ Sau đây sẽ đi qua một vài loại layer quan trọng được sử dụng
     
     Convolutional layer sử dụng phép toán tích chập ma trận (được trình bày ở mục \ref{convlop}) để rút trích đặc trưng cục bộ của bức hình. Phương pháp này đem lại hiệu quả đáng kể trong xử lý hình ảnh với khả năng khai thác đặc tính không gian của bức hình.
 
-    \item Graph convolution layer
-    \item 
-    \item BatchNorm layer
-    \item Resnet layer
-    \item Activation function: sigmoid
-    \item Activation function: relu
+    % \item Graph convolution layer
+    % \item 
+    % \item BatchNorm layer
+    \item Resnet layer (tham khảo \cite{he2016deep})
+    
+    Trong mô hình học sâu (deep learning), việc cập nhật các tham số mô hình gặp một vấn đề được gọi là \textit{vanishing gradients}. Nguyên nhân do kiến trúc mô hình nhiều layer, nên khi tính đạo hàm tới các layer thấp (các layer ban đầu), gradients có xu hướng nhỏ dần, điều này làm cho các lớp này không còn khả năng học tốt nữa. Đây là sự ra đời của mạng ResNet, giúp cho việc học của các mô hình học sâu được hiệu quả và ổn định hơn.
+
+    Mạng RestNet khá tương tự các mạng khác với các layer convolution, pooling, activation, fully-connected, chỉ khác ở chỗ có các đường dư thừa (residual block) nối tắt qua một vài layer (hình \ref{fig:restnet}). Kết quả thực nghiệm đã cho thấy mô hình học sâu kết hợp restnet có thể cải thiện khi độ chính xác tăng nhưng không tăng thêm độ phức tạp mô hình (tham khảo \cite{he2016deep}).
+
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[scale=0.2]{asset/image/restnet.png}
+            \caption{Một Residual block. }
+            \label{fig:restnet}
+        \end{center}
+    \end{figure}
+    \item Activation function: sigmoid, relu.
+    
+    Trong hệ thống thần kinh người, các xung thần kinh được truyền giữa các nơ-ron thông qua các axon. Để  mô phỏng quá trình truyền xung thần kinh của người qua axon theo một tỷ lệ, người ta dùng hàm kích hoạt (activation function). Trong một mạng nơ-ron nhân tạo, hàm kích hoạt đóng vai trò là thành phần phi tuyến giúp cho mô hình có khả năng biểu diễn được một hàm phức tạp giữa input và output của mạng.
+     
+    Hai loại hàm kích hoạt được sử dụng chủ yếu trong đề cương luận văn này là sigmoid (hình \ref{fig:sigmoid}) và relu (hình \ref{fig:relu}).
+    % phân tích ưu nhược điểm từng hàm: https://aicurious.io/posts/2019-09-23-cac-ham-kich-hoat-activation-function-trong-neural-networks/
+    Hàm sigmoid:
+    \begin{equation}
+        \sigma(x) = \frac{1}{1+e^{-x}}
+    \end{equation}    
+
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[scale=0.2]{asset/image/sigmoid.png}
+            \caption{Hàm sigmoid. }
+            \label{fig:sigmoid}
+        \end{center}
+    \end{figure}
+
+
+    Hàm Relu:
+    \begin{equation}
+        f(x) = max(0,x)
+    \end{equation}    
+
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[scale=0.2]{asset/image/relu.png}
+            \caption{Hàm Relu. }
+            \label{fig:relu}
+        \end{center}
+    \end{figure}
+    
+
 \end{itemize}
 
 \textbf{Kỹ thuật nhúng -  embedding}
 
-\textbf{Graph Convolution Network}
+% An embedding is a mapping of a discrete — categorical — variable to a vector of continuous numbers. In the context of neural networks, embeddings are low-dimensional, learned continuous vector representations of discrete variables. Neural network embeddings are useful because they can reduce the dimensionality of categorical variables and meaningfully represent categories in the transformed space.
+Nhúng (embedding) là một khái niệm phổ biến trong máy học, thực chất của việc này là đưa một biến rời rạc về dạng một vector với giá trị liên tục. Kết quả của việc nhúng thường là giảm chiều của dữ liệu hoặc đưa dữ liệu về dạng có ý nghĩa hơn trong miền không gian mới.
 
+%Neural network embeddings have 3 primary purposes:
+% Finding nearest neighbors in the embedding space. These can be used to make recommendations based on user interests or cluster categories.
+% As input to a machine learning model for a supervised task.
+% For visualization of concepts and relations between categories.
+
+Có ba mục đích chính của việc nhúng dữ liệu trong Neural network đó là:
+\begin{enumerate}
+    \item Tìm các hàng xóm (neighbors) lân cận trong không gian nhúng. Thường được sử dụng trong các bài toán gợi ý (recommendation) cho các dữ liệu về sở thích người dùng.
+    \item Được sử dụng như là input cho một mô hình machine learning trong các bài toán học giám sát.
+    \item Được sử dụng cho mục đích trực quan hóa (visualize) ý niệm hay quan hệ giữa các nhóm, loại (categories).
+\end{enumerate}
+
+% \textbf{Graph Convolution Network}
 
 \subsubsection{Phân loại các phương pháp học}
 \textbf{Phân loại phương pháp học}
-%TODO: hiện nay có 4 loại học phổ biến: supervised, unsupervised, reinforcement learning, và các phương pháp kết hợp (semi-supervised learning)
-\textbf{Phân loại theo ứng dụng}
+% TODO: hiện nay có 4 loại học phổ biến: supervised, unsupervised, reinforcement learning, và các phương pháp kết hợp (semi-supervised learning)
+Hiện nay có rất nhiều phương pháp học, có thể chia thành bốn loại phương pháp học chính sau đây: học giám sát, học không giám sát, học bán giám sát và học tăng cường.
 
+\begin{enumerate}
+    \item Học giám sát (supervised learning)
+    Đây là phương pháp học phổ biến nhất trong học máy hiện nay, việc học theo phương pháp này dựa trên tập dữ liệu huấn luyện biết trước với các cặp (input, label). 
+
+    \item Học không giám sát (unsupervised learning)
+    \item Học bán giám sát (semi-supervised learning)
+    \item Học tăng cường (reinforcement learning)
+\end{enumerate}
+
+% \textbf{Phân loại theo ứng dụng}
+
+% \begin{enumerate}
+%     \item Phân loại (classification)
+%     \item Hồi quy (regression)
+%     \item 
+% \end{enumerate}
