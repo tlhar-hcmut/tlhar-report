@@ -13,9 +13,6 @@ Trong toán học, tích chập là phép toán trên hai hàm f và g, tạo ra
 
 Đối với trong Xử  lý ảnh, phép tích chập được tính trên miền không gian hai chiều, rời rạc. Công thức tính tích chập trên ảnh f và bộ lọc k (kích thước mxn) tại điểm ảnh vị trí (x,y) với giả sử chỉ số trên bộ lọc được đánh số hàng từ -m/2 -> m/2 và chỉ số cột từ -n/2 -> n/2:
 
-
-
-
 \begin{equation}
     (k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x-u,y-v)
 \end{equation}
@@ -24,7 +21,6 @@ Một phép toán tương tự covolution nhưng không xoay bộ lọc như tr�
 \begin{equation}
     (k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x+u,y+v)
 \end{equation}
-
 
 \begin{figure}[!ht]
     \begin{center}
@@ -277,11 +273,35 @@ Hiện nay có rất nhiều phương pháp học, có thể chia thành bốn l
 
 \begin{enumerate}
     \item Học giám sát (supervised learning)
-    Đây là phương pháp học phổ biến nhất trong học máy hiện nay, việc học theo phương pháp này dựa trên tập dữ liệu huấn luyện biết trước với các cặp (input, label). 
+
+    Đây là phương pháp học phổ biến nhất trong học máy hiện nay, việc học theo phương pháp này dựa trên tập dữ liệu huấn luyện biết trước. Tập dữ liệu huấn luyện là tập các cặp (input, label) tương ứng, được truyền vào mô hình để cập nhật tham số. Từ tập dữ liệu huấn luyện, mô hình tiến hành nhận các input thường được gọi là \textit{fearture} (hay biến độc lập - independent variables), và thực hiện dự đoán ra kết quả được gọi là \textit{response} (biến phụ thuộc - dependent variable), kết quả dự đoán sẽ được so sánh với giá trị mong muốn (label) để thực hiện điều chỉnh tham số mô hình. 
+
+    Các bài toán phổ biến trong phương pháp học giám sát có thể kể tới phân loại (classification) và hồi quy (regression). Các bài toán học giám sát thường dùng để dự đoán một điểm dữ liệu (sample) thuộc một thể loại nào đó (trong tập rời rạc). Ở bài toán hồi quy, thay vì đưa ra kết quả rời rạc thì mô hình dự đoán một giá trị thực. Một ứng dụng rất phổ biến cho hai phương pháp học giám sát này là xây dựng mô hình gợi ý hay dự đoán một xu hướng theo thời gian (ví dụ dự đoán giá cổ phiếu).
 
     \item Học không giám sát (unsupervised learning)
+    
+    Khác với học giám sát, việc xây dựng một mô hình chỉ dụa vào dữ liệu input (X) mà không có biến nhãn tương ứng. Với đặc điểm này, mục đích của phương pháp học không giám sát không phải đưa ra dự đoán về một kết luận mà thay vào đó được sử dụng để khám phá và tìm ra cấu trúc (pattern) hữu ích bên trong dữ liệu.
+
+    Hai dạng bài toán phổ biến trong học không giám sát là gom cụm (clustering) và khai phá luật kết hợp (association). 
+    
+    Phương pháp gom cụm đưa ra các khám phá về các nhóm tương đồng trong dữ liệu, đưa tập dữ liệu ban đầu thành các cụm dữ liệu mà trong mỗi cụm, các điểm dữ liệu có tính tương đồng nhau theo một thuốc tính nào đó. Giải thuật điển hình cho phương pháp này là k-mean (tham khảo \cite{tiep2018machine}). 
+    
+    Trong khi đó, việc khai phá luật kêt hợp lại giúp mô hình khám phá ra những quy tắc đúng với tên gọi, là sự kết hợp giữa xác suất xảy ra các dữ liệu trong tập. Chẳng hạn mô hình dự đoán khuynh hướng người dùng mua món đồ A khi biết được người này thường mua món đồ B. Thuật toán Apriori là thuật toán điển hình cho dạng toán này.
+
     \item Học bán giám sát (semi-supervised learning)
+
+    Trong trường hợp xây dựng một mô hình cần lượng dữ liệu huấn luyện nhiều, trong đó chỉ một phần dữ liệu được gán nhãn, phương pháp này được gọi là học bán giám sát. Việc học bán giám sát phù hợp trong điều kiện dữ liệu gán nhãn đòi hỏi nhiều chi phí, cần kiến thức chuyên môn của các chuyên gia, thì việc sử dụng bổ sung thêm lượng dữ liệu chưa gán nhãn sẽ giúp tăng hiệu quả cho mô hình. Cụ thể việc xây dựng mô hình được kết hợp giữa học giám sát và học không giám sát. Phương pháp học không giám sát giúp đưa ra sự tương đồng giữa các điểm dữ liệu chưa được gán nhãn với các điểm dữ liệu gán nhãn, từ đó tạo ra tập dữ liệu mới cho mô hình học giám sát tiếp sau đó. Ngược lại, mô hình học giám sát giúp phỏng đoán nhãn của các điểm dữ liệu trong tập chưa được gán (hình \ref{fig:semi}). Sự hỗ trợ của hai mô hình này tạo ra khả năng tự huấn luyện của mô hình (self-training tham khảo \cite{zhu2009introduction})
+
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=\linewidth]{asset/image/semisupervised.png}
+            \caption{Quá trình dự đoán của mô hình 1-nearest-neighbor với 100 điểm chưa gán nhãn màu xanh (green). }
+            \label{fig:semi}
+        \end{center}
+    \end{figure}
+
     \item Học tăng cường (reinforcement learning)
+    
 \end{enumerate}
 
 % \textbf{Phân loại theo ứng dụng}

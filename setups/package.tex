@@ -45,4 +45,14 @@
 %provide \floatbox 
 \usepackage{floatrow}
 
+%fix warning lastpage...
 \usepackage{lastpage}
+
+%command new empty page
+\newcommand{\blankpage}{
+\newpage
+\thispagestyle{empty}
+\addtocounter{page}{-1}
+\mbox{}
+\newpage
+}
