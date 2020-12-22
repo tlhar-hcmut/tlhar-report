@@ -302,6 +302,15 @@ Hiện nay có rất nhiều phương pháp học, có thể chia thành bốn l
 
     \item Học tăng cường (reinforcement learning)
     
+    Phương pháp học tăng cường là một dạng khác biệt hoàn toàn với các phương pháp đã được liệt kê. Một cách chung nhất, phương pháp này thay vì tập trung vào dữ liệu thì việc học được tiến hành bằng cách tương tác trực tiếp với môi trường (environment) theo hình thức thử sai (trial-and-error). Trong học tăng cường, một khái niệm quan trọng là agent, tức là mô hình chúng ta được coi như là một thực thể, tự vận động cải thiện. Mỗi lần muốn tương tác với môi trường, agent thực hiện một hành động (action) và thu về một giá trị phần thưởng (reward). Nhiệm vụ của agent là học cách để tương tác với môi trường sao cho reward nhận được là lớn nhất có thể, hay nói cách khác tìm ra  một policy tốt nhất. Hiện nay ứng dụng dễ  thấy nhất của học tăng cường là ở lĩnh vực game, với các sản phẩm nổi tiếng như AlphaGo, AlphaZero, AlphaStar đã chiến thắng các tuyển thủ thế giới trong những có chơi như cờ vây, StarCraft.
+
+    \begin{figure}[t]
+        \begin{center}
+            \includegraphics[width=\linewidth]{asset/image/rl.png}
+            \caption{Tương tác agent-environment trong học tăng cường (tham khảo \cite{franccois2018introduction}). }
+            \label{fig:semi}
+        \end{center}
+    \end{figure}
 \end{enumerate}
 
 % \textbf{Phân loại theo ứng dụng}
