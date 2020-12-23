@@ -1,7 +1,7 @@
 \section{Kiến thức nền tảng}
 Trước khi đi vào nghiên cứu bài đề cương luận văn này, một số kiến thức nền tảng cần được nhắc lại như sau.
 \subsection{Các kiến thức toán cơ bản}
-\subsubsection{Phép nhân tích chập ma trận (convolution)}\label{convlop}
+\subsubsection{Phép nhân tích chập ma trận (convolution)}\label{subsec:convlop}
 
 Nhân tích chập là phép toán quan trọng trong Xử lý ảnh số và thị giác máy tính, là công cụ chủ yếu để thực hiện các phép tính toán trên ảnh như đạo hàm ảnh, làm trơn ảnh hay trích xuất cạnh.
 
@@ -22,7 +22,7 @@ Một phép toán tương tự covolution nhưng không xoay bộ lọc như tr�
     (k*f)(x,y) \triangleq \displaystyle \sum_{u=-m/2}^{m/2}\displaystyle \sum_{v=-n/2}^{n/2}k(u,v)f(x+u,y+v)
 \end{equation}
 
-\begin{figure}[!ht]
+\begin{figure}[!htp]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/correlation.jpg}
         \caption{Phép correlation.}
@@ -54,7 +54,7 @@ Trong Đề cương luận văn này, loại đồ thị được tập trung ch
 
 Đối với khung xương người, mỗi khớp sẽ được mô hình hóa thành một đỉnh trong đồ thị, giá trị chứa trong đỉnh là tọa độ của khớp đó trong khung hình (với điểm gốc được định nghĩa tùy vào mục đích bài toán). Mỗi cạnh biểu thị hai đỉnh tương quan với nhau, tức là tồn tại xương giữa hai khớp đó. Độ dài ngắn biểu thị độ xa gần của các khớp. Tùy mục đích mà việc chọn các khớp nào,  hay các xương nào để  mô hình hóa bài toán. Ví dụ với bài toán nhận diện cử chỉ tay, việc tập trung chi tiết các khớp xương ở tay sẽ rất có giá trị, trong khi các khớp xương ở chân và các bộ phận khác sẽ không đóng góp nhiều, do đó không cần định nghĩa trong bài toán.
 
-\begin{figure}[!ht]
+\begin{figure}[!htp]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/skeleton.png}
         \caption{Graph model cho khung xương người (tham khảo \cite{shi2020skeleton}). }
@@ -64,7 +64,7 @@ Trong Đề cương luận văn này, loại đồ thị được tập trung ch
 
 Trong mô hình thực tế nhóm đang nghiên cứu, tức với mục tiêu nhận diện nhiều loại hành vi của con người, ngoài các cạnh biểu thị các xương sẵn có như hình \ref{fig:skeleton}, nhóm còn định nghĩa thêm các cạnh biểu thị sự tương quan giữa hai đỉnh mà nhóm cho là cần thiết cho mục tiêu bài toán, ví dụ các cạnh giữa hai khớp tay hay giữa khớp tay với khớp chân (hình \ref{fig:morebones}).
 
-\begin{figure}[t]
+\begin{figure}[!htp]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/morebones.png}
         \caption{Graph model cho khung xương người với các cạnh bổ sung (tham khảo \cite{shi2020skeleton}). }
@@ -109,7 +109,7 @@ Tổng hợp hai trường hợp trên, ta đều phải dời $x_t$ theo chiề
 
 Trong đó giá trị $\eta$ thường được gọi là \textit{tốc độ học (learning rate)}. Dấu trừ biểu thị cho việc dời $x_t$ ngược chiều với giá trị đạo hàm. (tham khảo \cite{tiep2018machine})
 
-Trong học máy, Gradient descent ứng dụng cho việc cập nhật các tham số giữa các layer của mạng. Việc cập nhật các tham số này (trình bày ở mục \ref{ann}) sẽ được thực thi từ layer cuối cùng trở về trước, do việc tính đạo hàm phải bắt đầu theo thứ tự đó. Quá trình cập nhật tham số  này được gọi là lan truyền ngược (back propagation).
+Trong học máy, Gradient descent ứng dụng cho việc cập nhật các tham số giữa các layer của mạng. Việc cập nhật các tham số này (trình bày ở mục \ref{subsubsec:ann}) sẽ được thực thi từ layer cuối cùng trở về trước, do việc tính đạo hàm phải bắt đầu theo thứ tự đó. Quá trình cập nhật tham số  này được gọi là lan truyền ngược (back propagation).
 
 \textbf{Overfitting}
 
@@ -173,14 +173,14 @@ Một vấn đề khi cố gắng giảm bias thì variance sẽ tăng, và ngư
 \end{equation}
 
 
-\textbf{Mạng nơ-ron nhân tạo (artificial neural network)}\label{ann} (tham khảo \cite{abraham2005artificial})
+\textbf{Mạng nơ-ron nhân tạo (artificial neural network)} \label{subsubsec:ann} (tham khảo \cite{abraham2005artificial})
 
 Mạng nơ-ron nhân tạo là một lĩnh vực nghiên cứu trong học máy, có nhiệm vụ cố gắng mô phỏng cách mà não bộ con người phân tích và xử lý thông tin. Sự ra đời của kiến trúc này đã giúp giải được các bài toán khó và phức tạp đối con người hay các phương pháp thống kê thông thường. Đây là kiến trúc có khả năng tự học và cải thiện khả năng để đưa ra kết quả tốt hơn khi nhiều dữ liệu được cung cấp cho mạng. Mô phỏng kiến trúc một ANN đơn giản như hình \ref{fig:anniamg}.
 
-\begin{figure}[t]
+\begin{figure}[!htp]
     \begin{center}
         \includegraphics[scale=0.2]{asset/image/anniamg.png}
-        \caption{Kiến trúc một ANN đơn giản. }
+        \caption{Kiến trúc một ANN đơn giản.}
         \label{fig:anniamg}
     \end{center}
 \end{figure}
@@ -193,7 +193,7 @@ Sau đây sẽ đi qua một vài loại layer quan trọng được sử dụng
 
           Trong xử lý ảnh, thông thường thuộc tính toàn cục (global) của bức hình không chứa nhiều giá trị bằng thuộc tính cục bộ (local). Vì vậy Kunihiko Fukushima đã đưa ra một loại layer rất phổ biến ngày nay với tên gọi Convolutional  layer(tham khảo \cite{fukushima1988neocognitron}).
 
-          Convolutional layer sử dụng phép toán tích chập ma trận (được trình bày ở mục \ref{convlop}) để rút trích đặc trưng cục bộ của bức hình. Phương pháp này đem lại hiệu quả đáng kể trong xử lý hình ảnh với khả năng khai thác đặc tính không gian của bức hình.
+          Convolutional layer sử dụng phép toán tích chập ma trận (được trình bày ở mục \ref{subsec:convlop}) để rút trích đặc trưng cục bộ của bức hình. Phương pháp này đem lại hiệu quả đáng kể trong xử lý hình ảnh với khả năng khai thác đặc tính không gian của bức hình.
 
           % \item Graph convolution layer
           % \item 

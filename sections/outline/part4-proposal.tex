@@ -17,9 +17,9 @@ Khác với tập RGB, các mô hình học máy thường nhúng một vùng �
 
 Hình \ref{fig:morebones} cho thấy kết quả sau khi đi qua các layer AGCN, cạnh màu xanh là các cạnh của khung xương người ban đầu, màu cam là các cạnh được mô hình học và nối thêm.
 
-\begin{figure}[!ht]
+\begin{figure}[!htp]
     \begin{center}
-        \includegraphics[width=\linewidth]{asset/image/agcn.png}
+        \includegraphics[width=0.6\linewidth]{asset/image/agcn.png}
         \caption{Adaptive graph convolutional network}
         \label{fig:agcn}
     \end{center}
@@ -37,7 +37,7 @@ Ngoài ý tưởng về AGCN, nhóm đã tìm đọc thêm nhiều tài liệu �
     \item Ở mô hình baseline nhóm lựa chọn, việc nhận diện hành đồng cần xem qua toàn bộ video để dự đoán. Tuy nhiên ví dụ như hành động vỗ tay, ta không cần xem toàn bộ 5 lần vỗ tay liên tiếp để suy ra hành động, mà có thể nhận biết ngay từ lần vỗ tay đầu liên. Vì vậy nhóm đề xuất chia dữ liệu thành từng đoạn thời gian nhỏ nhằm hiện thực dự đoán sớm các hành động.
 \end{itemize}
 
-\begin{figure}[!ht]
+\begin{figure}[!htp]
     \begin{center}
         \includegraphics[width=\linewidth]{asset/image/body_part_embedding.png}
         \caption{Human body part embedding}
