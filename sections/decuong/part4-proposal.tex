@@ -28,3 +28,18 @@ Mô hình này đã được nhóm hiện thực lại bằng Pytorch và trình
 
 \subsection{Hướng đề xuất cải tiến mô hình}
 
+Ngoài ý tưởng về AGCN, nhóm đã tìm đọc thêm nhiều tài liệu để lựa chọn hướng đi mới nhằm kết hợp lại và tăng cường độ chính xác mô hình:
+
+\begin{itemize}
+    \item Ở bước tiền xử lý nhóm quyết định sẽ tăng cường dữ liệu theo 2 hướng nhằm tăng kiến thức về không gian và thời gian. Về mặt thời gian, nhóm sẽ hiệu tọa độ của các khớp tương ứng giữa các frame hình liền kề nhau nhằm tạo ra kiến thức về chuyển động. Về mặt không gian, nhóm hiệu tọa độ các đỉnh liền kề nhau theo cấu trúc khung xương con người nhằm tạo ra kiến thức khúc xương. Đầu vào của mô hình sẽ bao gồm 3 luồng, là dữ liệu gốc, dữ liệu tăng cường theo thời gian và dữ liệu tăng cường theo không gian.
+    \item Ở mô hình baseline nhóm lựa chọn, bottleneck xảy ra ở lớp fully connected, số tham số quá lớn để có thể phân loại dữ liệu với 25 khớp xương, 300 frame hình, là số chiều của vector nhúng được tăng cường lên tới 32 chiều. Vì vậy nhóm tìm hiểu và lấy ý tưởng từ bài báo \cite{song2020stronger} nhằm nhúng 5 bộ phận cơ thể của con người là đầu, 2 tay và 2 chân nhằm giảm số khớp xuống còn 5, nhờ đó khắc phục bottleneck. Hình \ref{fig:body-part-embedding} trích từ \cite{song2020stronger} minh họa cho ý tưởng này.
+    \item Ở mô hình baseline nhóm lựa chọn, việc nhận diện hành đồng cần xem toàn bộ video để dự đoán. Tuy nhiên ví dụ như hành động vỗ tay, ta không cần xem toàn bộ 5 lần vỗ tay liên tiếp để suy ra hành động, mà có thể nhận biết ngay từ lần vỗ tay đầu liên. Vì vậy nhóm đề xuất chia dữ liệu thành từng đoạn thời gian nhỏ nhằm hiện thực dự đoán sớm các hành động.
+\end{itemize}
+
+\begin{figure}[!ht]
+    \begin{center}
+        \includegraphics[width=\linewidth]{asset/image/body_part_embedding.png}
+        \caption{Human body part embedding}
+        \label{fig:body-part-embedding}
+    \end{center}
+\end{figure}
