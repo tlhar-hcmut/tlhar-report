@@ -3,19 +3,19 @@
 Trong chương này, sẽ trình bày khảo sát về bài toán Nhận diện hành động trong video. Bao gồm: tính ứng dụng và các thách thức của bài toán, các phương pháp truyền thống, các phương pháp học sâu và cuối cùng là phương pháp mới xuất hiện trong hai năm trở lại đây và đạt được các kết quả đáng ngạc nhiên, graph convolutional network (GCN).
 
 \subsection{Khảo sát chung}
-Nhận diện hành động (action recognition) của con người có thể được chia thành hai bước là Phát hiện hành động (action detection) và Phân loại hành động (action classification).
+Nhận diện hành động (action recognition) của con người có thể được chia thành hai loại theo phương pháp là Phát hiện hành động (action detection) và Phân loại hành động (action classification) \cite{zhang2019comprehensive}.
 
 \begin{itemize}
-    \item Phân loại hành động là quá trình xác định hành động trong đoạn video được cắt ngắn và chỉ chứa duy nhất một hành động cần được phân loại. Đây là bước được các nhà nghiên cứu quan tâm từ rất sớm và đã có nhiều thành tự nhất định. % bắt buộc cite chỗ này
-    \item Phát hiện hành động là quá trình tìm ra khoảng thời gian bắt đầu và thời gian kết thúc của hành động trong một video dài chứa nhiều hành động. Đây là bước quan trọng để ứng dụng vào thực tế, tuy nhiên vẫn chưa được quan tâm nhiều, và vẫn còn là thách thức lớn cần giải quyết.
+    \item Phân loại hành động là quá trình xác định hành động trong đoạn video được cắt ngắn và chỉ chứa duy nhất một hành động cần được phân loại. Đây là bước được các nhà nghiên cứu quan tâm từ rất sớm và đạt nhiều thành tựu.
+    \item Phát hiện hành động là quá trình tìm ra khoảng thời gian bắt đầu và kết thúc của hành động trong một video dài chứa nhiều hành động. Đây là một bước tiến so với phân loại hành động và mang tính ứng dụng cao.
 \end{itemize}
 
-Các kỹ thuật nhận diện hành động ngày nay có thể được chia làm 4 loại dựa trên tính chất hành động:
+Các kỹ thuật nhận diện hành động còn có thể được chia làm 4 loại dựa trên tính chất hành động \cite{zhang2019comprehensive}:
 
-\begin{itemize} % cho vài nhận xét
-    \item Nhận diện các hành động cơ bản của một bộ phận trên cơ thể như vẫy tay, nhấc chân, uốn cong người...
+\begin{itemize}
+    \item Nhận diện các hành động cơ bản của một bộ phận trên cơ thể như vẩy tay, nhấc chân, uốn cong người.
     \item Nhận diện hành động của nhiều bộ phận phối hợp nhau trên một cơ thể như đi bộ, nhảy xa, đấm.
-    \item Nhận diện hành động có sự tương tác giữa người và một đối tượng khác như đánh đàn, cầm dao....
+    \item Nhận diện hành động có sự tương tác giữa người và một đối tượng khác như đánh đàn, cầm dao ...
     \item Nhận diện hành động của một nhóm người như biểu tình, họp nhóm ...
 \end{itemize}
 
@@ -25,7 +25,7 @@ Nhận diện hành động của con người có tính ứng dụng cao và nh
 
 \begin{itemize}
     \item Hệ thống giám sát và nhận diện bất thường trong môi trường nhà ở. Bài báo \cite{gunale2019intelligent} đã trình bày phương pháp đơn giản sử dụng MHI để trích suất suất đặc trưng thủ công và sử dụng SVM để phân loại từ đó phát hiện hành động té ngã. Đây là ứng dụng thiết thực đối với người già thường ở nhà một mình.
-    \item Hệ thống tìm kiếm, truy vấn video theo hành động. David Doermann và Daniel DeMenthon đã đề suất phương pháp chia video giám sát thành các video ngắn có độ dài nữa giây, từ đó gán nhãn lưu trữ dưới cấu dữ liệu dạng cây để phục vụ truy vấn \cite{lin2012human}. Ví dụ cho tính ứng dụng của hệ thống là có thể giúp ta phát hiện ăn cắp tại các văn phòng.
+    \item Hệ thống tìm kiếm, truy vấn video theo hành động. David Doermann và Daniel DeMenthon đã đề suất phương pháp chia video giám sát thành các video ngắn có độ dài nữa giây, từ đó gán nhãn và lưu trữ dưới cấu dữ liệu dạng cây để phục vụ truy vấn \cite{lin2012human}. Ví dụ cho tính ứng dụng của hệ thống là có thể giúp ta phát hiện tìm kiếm nhanh đoạn video theo hành động như ăn cắp, xả rác, các hành động vi phạm giao thông nhanh chóng.
     \item Hệ thống phát hiện lỗi của vận động viên cho các cuộc thi thể thao. Điển hình của ứng dụng này là hệ thống VAR của FIFA đã ứng dụng năm 2018 để  hỗ trợ trọng tài đưa ra quyết định về lỗi \cite{petersen2019var}.
 \end{itemize}
 
@@ -33,9 +33,13 @@ Có thể thấy bài toán nhận diện hành động trong video mang lại n
 
 \subsection{Khảo sát các thách thức}
 
-Thách thức đầu tiên phải nói đến dữ liệu. Khác với với tập dữ liệu ảnh tỉnh, chỉ có các chiều dữ liệu không gian, tập dữ liệu cho bài toán này còn mở rộng thêm chiều thời gian. Thách thức đặt ra là ta cần tìm một phương pháp trích suất được tốt kiến thức của cả chiều không gian và thời gian. Đã có nhiều phương pháp được đưa ra, có thể  kể đến các phương pháp thủ công \ref{survey:method-handcraft}, các phương pháp học sâu \ref{survey:method-deep-learning}.
+Thách thức đầu tiên phải nói đến là dữ liệu. Khác với với tập dữ liệu ảnh tỉnh, chỉ có các chiều dữ liệu không gian, tập dữ liệu cho bài toán này còn mở rộng thêm chiều thời gian. Thách thức đặt ra là ta cần tìm một phương pháp trích suất được tốt kiến thức của cả chiều không gian và thời gian. Đã có nhiều phương pháp được đưa ra, có thể  kể đến các phương pháp thủ công \ref{survey:method-handcraft}, các phương pháp học sâu \ref{survey:method-deep-learning}.
 
 Tuy nhiên các cách trích suất này chưa thực sự tốt cho kiểu dữ liệu skeleton, có dạng dữ liệu đồ thị. Trong tài liệu này nhóm trình bài mô hình graph convolutional network để xây dựng adaptive graph được lấy ý tưởng từ bài báo \cite{shi2020skeleton} và những cải tiến nhóm đề xuất.
+
+Thách thức thứ hai đó là tính khả thi khi áp dụng vào thực tế. Với những bài toán cần xử lý theo thời gian thực như phát hiện té ngã, phát hiện trộm, tốc độ xử lý là phải gần như ngay lập tức sau khi hành động được thực hiện. Ngoài ra, mô hình cần đáp ứng tính không bỏ sót (recall), ví dụ như mô hình phải luôn luôn nhận biết được hành động té ngã để cảnh báo, và cho phép mô hình đôi lúc cảnh báo sai dù không có hành động té ngã.
+
+Có thể thấy đây là bài toán còn nhiều thách thức khắc khe để giải quyết khi ứng dụng vào môi trường thực tế. Đây là lý do quan trọng để nhóm lựa chọn đề tài này cho luận văn.
 
 \subsection{Khảo sát tập dữ liệu}
 
@@ -44,16 +48,14 @@ Có ba kiểu dữ liệu phổ biến được sử dụng cho bài toán:
 \begin{itemize}
     \item Dữ liệu màu (RGB): Tập dữ liệu là một chuỗi các ảnh màu theo hệ màu RGB. Đây là dữ liệu phổ biến được sử dụng nhiều nhất.
     \item Dữ liệu độ sâu (Depth): Tập dữ liệu là một chuỗi các ảnh độ sâu, với các giá trị càng lớn (càng sáng) là càng gần camera, các giá trị càng nhỏ (càng tối) là càng xa camera. Tập dữ liệu này mang lượng kiến thức về tư thế của con người khá tốt, bởi chủ thể luôn đứng gần camera hơn so với nền xung quanh. Tập dữ liệu này cũng được cộng đồng nghiên cứu nhiều và cho kết quả tốt.
-    \item Dữ liệu khung xương (skeleton): tập dữ liệu là một chuỗi các đồ thị biểu diễn khung xương của con người, mỗi khung xương chứa tập hợp các khớp (joint) được biểu diễn bằng tọa độ trong không gian 2 hoặc 3 chiều. Tập dữ liệu này gần đây mới được khai thác nhiều nhờ sự xuất hiện của giải thuật graph convolutional network. Nhóm sẽ chủ yế xử lý trên tập này.
+    \item Dữ liệu khung xương (skeleton): tập dữ liệu là một chuỗi các đồ thị biểu diễn khung xương của con người, mỗi khung xương chứa tập hợp các khớp (joint) được biểu diễn bằng tọa độ trong không gian 2 hoặc 3 chiều. Tập dữ liệu này gần đây mới được khai thác nhiều nhờ sự xuất hiện của giải thuật graph convolutional network. Nhóm sẽ chủ yếu xử lý trên loại dữ liệu này.
 \end{itemize}
 
 Khá nhiều tập dữ liệu được công bố công khai cho bài toán nhận diện hành động. Nhóm đã tìm hiểu thông qua bài khảo sát \cite{zhang2019comprehensive} và bảng \ref{table:dataset-popular} được trích lại từ \cite{zhang2019comprehensive}:
 
-
 Trong các tập dữ liệu được liệt kê, tập dữ liệu có số góc nhìn, số chủ thể, số camera, số class nhiều nhất là tập NTU RGB+D. Tập dữ liệu này có đủ cả 3 loại dữ liệu về RGB, độ sâu và skeleton. Nhóm đã quyết định chọn tập dữ liệu này để thực nghiệm.
 
-
-\begin{table}[!ht]
+\begin{table}[!htp]
     \centering
     \begin{tabular}{|l|c|c|c|l|l|}
         \hline
@@ -97,9 +99,9 @@ Khả năng trích suất đặc trưng của hai giải thuật trên là rất
 
 \textbf{Các phương pháp dựa trên STIP} nhận được nhiều sự quan tâm của cộng đồng nghiên cứu vì không chỉ trích xuất các vùng quan trọng về không gian mà còn thời gian. Nhờ đó phương pháp này được sử dụng rộng rãi trong bài toán nhận diện hành động. Nó cho phép trích xuất được những chuyển động quan trọng từ video để biểu diện hành động. Hầu hết các phương pháp dựa trên STIP đều kế thừa từ các phương pháp phát hiện vật thể cổ điển dùng cho ảnh tĩnh như Haris, HOG \cite{seemanthini2018human}. Từ "interest points" trong STIP chỉ ra những điểm có sự thay đổi đáng kể trong chiều không thời gian. Phổ biến nhất cho phương pháp này có thể kể đến giải thuật 3D-Harris do Laptev đề xuất trong \cite{laptev2005space}. Nhờ đó các giải thuật này không yêu cầu phải tiền xử lý phần khung nền (background) hay phải xác định chủ thể trong khung nhìn (human detection).
 
-\textbf{Các phương pháp dựa trên MT} thường sử dụng cho dữ liệu dạng skeleton. Giải thuật ghi vết lại quỹ đạo di chuyển của các khớp nhằm biểu diễn hành động. Đối với dữ liệu RGB, giải thuật cần tìm ra tập các điểm quan trọng để ghi vết. Đại diện cho phương pháp này là improved dense trajectories (iDT) \cite{wang2013action}, phương pháp sử dụng SURF điểm tìm ra các "interest points" và tính toán optical flow trên chúng.
+\textbf{Các phương pháp dựa trên MT} thường sử dụng cho dữ liệu dạng skeleton. Giải thuật ghi vết lại quỹ đạo di chuyển của các khớp nhằm biểu diễn hành động. Đối với dữ liệu RGB, giải thuật cần tìm ra tập các điểm quan trọng để ghi vết. Đại diện cho phương pháp này là improved dense trajectories (iDT) \cite{wang2013action}, phương pháp sử dụng SURF để tìm ra các "interest points" và tính toán optical flow trên chúng. 
 
-Giải thuật này đã khắc phục những nhược điểm của phương pháp biểu diễn dữ liệu toàn cục nhóm đã nêu, đó góc nhìn cố định và chỉ có chủ thể  cần xác định hành động di chuyển.
+Phương pháp biểu diễn dữ liệu cục bộ đã khắc phục những nhược điểm của phương pháp biểu diễn dữ liệu toàn cục nhóm đã nêu, đó góc nhìn cố định và chỉ có chủ thể  cần xác định hành động di chuyển.
 
 \subsection{Khảo sát các phương pháp học sâu}
 \label{survey:method-deep-learning}
@@ -115,4 +117,4 @@ Các mô hình học sâu đó chủ yếu giải quyết đặc tính đặc bi
 
 \textbf{Long short-term memory (LSTM):} Một cách tiếp cận khác để trích suất được thông tin về thời gian đó là thêm lớp họ RNN và CNN 2D, chẳng hạn như LSTM. Nhờ đó mô hình này có thể được khả năng hiểu dữ liệu không gian mạnh mẽ của CNN và trí nhớ dài hạn của LSTM \cite{liu2016spatio}.
 
-Và đặc biệt, vào năm 2018, Yan đã lần đầu tiên ứng dụng thành công mô hình graph convolutional network cho bài toán Nhận diện hành động qua video \cite{yan2018spatial}. Tuy nhiên Yan sử dụng đầu vào là khung xương người với các cạnh nối theo một tự nhiên, như đầu nối với cổ, vai nối khủy tay. Và rõ ràng các cạnh đó có mức quan trọng khác nhau đối với từng hành động khác nhau. Ví dụ như hành đồng vỗ tay, cạnh nối giữa 2 bàn tay có mang rất nhiều kiến thức, còn cạnh nối bàn chân và đầu gối gàn như không mang ý nghĩa. Do vậy, năm 2019, Lei Shi đã đề xuất mô hình adaptive graph convolutional network cho phép xây dụng ma trận liền kề phù hợp với từng hành động \cite{shi2020skeleton}, các cạnh mang nhiều kiến thức được tăng cường hoặc nối thêm. Bài báo đã cho kết quả cao hơn đối với các phương pháp dựa trên RNN và CNN truyền thống. Và nhóm quyết định xây dựng mô hình dựa trên công trình này.
+Và đặc biệt, vào năm 2018, Yan đã lần đầu tiên ứng dụng thành công mô hình graph convolutional network cho bài toán Nhận diện hành động qua video \cite{yan2018spatial}. Tuy nhiên Yan sử dụng đầu vào là khung xương người với các cạnh nối theo một cách tự nhiên, như đầu nối với cổ, vai nối khủy tay. Và rõ ràng các cạnh đó có mức quan trọng khác nhau đối với từng hành động khác nhau. Ví dụ như hành đồng vỗ tay, cạnh nối giữa 2 bàn tay có mang rất nhiều kiến thức, còn cạnh nối bàn chân và đầu gối gần như không mang ý nghĩa. Do vậy, năm 2019, Lei Shi đã đề xuất mô hình adaptive graph convolutional network cho phép xây dụng ma trận liền kề phù hợp với từng hành động \cite{shi2020skeleton}, các cạnh mang nhiều kiến thức được tăng cường hoặc nối thêm. Bài báo đã cho kết quả cao hơn đối với các phương pháp dựa trên RNN và CNN truyền thống. Và nhóm quyết định xây dựng mô hình dựa trên công trình này.
