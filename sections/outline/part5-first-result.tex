@@ -14,7 +14,7 @@ Nhận thấy các hành động của tập dữ liệu NTURGBD như uống nư
 
 \subsection{Huấn luyện mô hình}
 
-Mô hình học của nhóm sử dựng tổng cộng 9 lớp AGCN, trong đó 3 lớp đầu nhúng số channel đầu vào là 3 thành vector nhứng có kích thước là 8, 3 lớp giữa nhúng thành 16 chiều, và 3 lớp cuối cùng thành 32. Ở lớp phân loại nhóm sử dụng lớp Linear có 60 hiden unit nhằm phân loại 60 class. Hàm loss được sử dụng là hàm cross entropy. Nhóm train qua 30 epoch với số batch size là 48.
+Mô hình học của nhóm sử dựng tổng cộng 9 lớp AGCN, trong đó 3 lớp đầu nhúng số channel đầu vào là 3 thành vector nhứng có kích thước là 8, 3 lớp giữa nhúng thành 16 chiều, và 3 lớp cuối cùng thành 32. Ở lớp phân loại nhóm sử dụng lớp Linear có 60 hidden unit nhằm phân loại 60 class. Hàm loss được sử dụng là hàm cross entropy. Nhóm train qua 30 epoch với số batch size là 48.
 
 Nhóm sử dụng máy tính với GPU 1050 Ti 4GB VRam và 16GB ram. Quá trình train mô hình trong 3 tiếng và cho kết quả tốt nhất trên tập huấn luyện là $80.2\%$, trên tập đánh giá là $75\%$. Tuy chỉ mới hiện thực cơ bản, và bóp nhỏ mô hình để phù hợp điều kiện phần cứng nhưng nhóm đạt kết quả tương đối khả quan. Nhóm đánh giá đây là hướng đi có tính khả thi và có thể cải tiến trong quá trình làm luận văn.
 
